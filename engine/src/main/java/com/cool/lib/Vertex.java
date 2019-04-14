@@ -2,19 +2,19 @@ package com.cool.lib;
 
 public class Vertex {
 	public int x;
-	public int y;
+	public int z;
 	public Vertex(int x, int y) {
 		this.x = x;
-		this.y = y;
+		this.z = y;
 	}
 	public Vertex add(Vertex v) {
 		this.x += v.x;
-		this.y += v.y;
+		this.z += v.z;
 		return this;
 	}
 	public Vertex add(int x, int y) {
 		this.x += x;
-		this.y += y;
+		this.z += y;
 		return this;
 	}
 	public static Vertex addVertices(Vertex v1, Vertex v2) {
@@ -25,14 +25,14 @@ public class Vertex {
 	}
 	public void subtract(Vertex v) {
 		this.x -= v.x;
-		this.y -= v.y;
+		this.z -= v.z;
 	}
 	public Vertex clone() {
-		return new Vertex(x,y);
+		return new Vertex(x,z);
 	}
 	
 	@Override
 	public String toString() {
-		return "(" + x + ", " + y + ")";
+		return "(" + x + ", " + z + ")";
 	}
 }

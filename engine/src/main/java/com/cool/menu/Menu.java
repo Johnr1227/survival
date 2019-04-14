@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.glfw.GLFW;
 
 import com.cool.audio.Audio.Sound;
+import com.cool.lib.Controls;
 import com.cool.lib.Keyboard;
 import com.cool.lib.Renderer;
 import com.cool.lib.Texture;
@@ -15,7 +16,7 @@ public class Menu {
 	public static MenuTypes currentMenu = MenuTypes.MAIN;
 
 	public static enum MenuTypes {
-		NONE, MAIN, OPTIONS, GAME;
+		NONE, MAIN, CHARACTER_CUSTOMIZE, OPTIONS, GAME;
 
 		MenuTypes() {
 
@@ -46,26 +47,21 @@ public class Menu {
 			prevBtnDown = false;
 		}
 		if(!prevBtnDown) {
-			if(Keyboard.isKeyDown(GLFW.GLFW_KEY_UP)) {
+			if(Keyboard.isKeyPressed(GLFW.GLFW_KEY_UP)) {
 				decrementButton();
-				prevBtnDown = true;
 				buttonSelectSound.play();
-			} else if(Keyboard.isKeyDown(GLFW.GLFW_KEY_DOWN)) {
+			} else if(Keyboard.isKeyPressed(GLFW.GLFW_KEY_DOWN)) {
 				incrementButton();
-				prevBtnDown = true;
 				buttonSelectSound.play();
-			} else if(Keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT)) {
+			} else if(Keyboard.isKeyPressed(GLFW.GLFW_KEY_LEFT)) {
 				decrementButton();
-				prevBtnDown = true;
 				buttonSelectSound.play();
-			} else if(Keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT)) {
+			} else if(Keyboard.isKeyPressed(GLFW.GLFW_KEY_RIGHT)) {
 				incrementButton();
-				prevBtnDown = true;
 				buttonSelectSound.play();
 			}
-			if(Keyboard.isKeyDown(GLFW.GLFW_KEY_ENTER)) {
+			if(Keyboard.isKeyPressed(Controls.INTERACT)) {
 				buttonPressed = true;
-				prevBtnDown = true;
 				buttonClickSound.play();
 			}
 		}

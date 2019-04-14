@@ -1,10 +1,10 @@
 package com.cool.tile;
 
-import com.cool.Textures;
-import com.cool.tiles.TileGrass;
+import com.cool.tiles.*;
 
 public class Tiles {
 	public static Tile GRASS = new TileGrass();
 	
-	public static TileObstacle STONE = new TileObstacle(Textures.STONE,"stone","Stone");
+	public static TileObstacle ROCK = new TileRock();
+	public static TileObstacle TREE = new TileTree();
 }

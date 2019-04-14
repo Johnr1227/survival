@@ -30,6 +30,29 @@ public class Renderer {
 		
 		glEnd();
 	}
+	public static void drawTexture3d(int x, int y, int z, int x2, int y2, int z2, Texture tex) {
+		glEnable(GL_TEXTURE_2D);
+		glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();	
+		
+		tex.bind();
+		
+		glBegin(GL_QUADS);
+		glColor3f(1, 1, 1);
+		glTexCoord2i(1, 0);
+		glVertex3i(x2, y,z);
+		
+		glTexCoord2i(0, 0);
+		glVertex3i(x, y,z);
+		
+		glTexCoord2i(0, 1);
+		glVertex3i(x, y2,z2);
+		
+		glTexCoord2i(1, 1);
+		glVertex3i(x2, y2,z2);
+		
+		glEnd();
+	}
 	public static void drawColoredTexture(int x, int y, int x2, int y2, Texture tex, Color c) {
 		glEnable(GL_TEXTURE_2D);
 		glMatrixMode(GL_TEXTURE);
@@ -182,13 +205,13 @@ public class Renderer {
 		glBegin(GL_POLYGON);
 		glColor3f(r, g, b);
 		
-		glVertex2i(p1.x, p1.y);
+		glVertex2i(p1.x, p1.z);
 		
-		glVertex2i(p2.x, p2.y);
+		glVertex2i(p2.x, p2.z);
 		
-		glVertex2i(p3.x, p3.y);
+		glVertex2i(p3.x, p3.z);
 
-		glVertex2i(p4.x, p4.y);
+		glVertex2i(p4.x, p4.z);
 		
 		glEnd();
 	}
@@ -197,13 +220,13 @@ public class Renderer {
 		glBegin(GL_POLYGON);
 		glColor3f(c.r, c.g, c.b);
 		
-		glVertex2i(p1.x, p1.y);
+		glVertex2i(p1.x, p1.z);
 		
-		glVertex2i(p2.x, p2.y);
+		glVertex2i(p2.x, p2.z);
 		
-		glVertex2i(p3.x, p3.y);
+		glVertex2i(p3.x, p3.z);
 
-		glVertex2i(p4.x, p4.y);
+		glVertex2i(p4.x, p4.z);
 		
 		glEnd();
 	}
@@ -212,9 +235,9 @@ public class Renderer {
 		glBegin(GL_POLYGON);
 		glColor3f(r, g, b);
 		
-		glVertex2i(pos.x, pos.y);
+		glVertex2i(pos.x, pos.z);
 		for(float i = 0; i < Math.PI*2; i += Math.PI / 20) {
-			glVertex2i((int)Math.round((pos.x+Math.cos(i)*radius)), (int)Math.round((pos.y+Math.sin(i)*radius)));
+			glVertex2i((int)Math.round((pos.x+Math.cos(i)*radius)), (int)Math.round((pos.z+Math.sin(i)*radius)));
 		}
 		
 		glEnd();
@@ -224,9 +247,9 @@ public class Renderer {
 		glBegin(GL_POLYGON);
 		glColor3f(c.r, c.g, c.b);
 		
-		glVertex2i(pos.x, pos.y);
+		glVertex2i(pos.x, pos.z);
 		for(float i = 0; i < Math.PI*2; i += Math.PI / 20) {
-			glVertex2i((int)Math.round((pos.x+Math.cos(i)*radius)), (int)Math.round((pos.y+Math.sin(i)*radius)));
+			glVertex2i((int)Math.round((pos.x+Math.cos(i)*radius)), (int)Math.round((pos.z+Math.sin(i)*radius)));
 		}
 		
 		glEnd();
@@ -241,16 +264,16 @@ public class Renderer {
 			
 			glBegin(GL_QUADS);
 			glColor3f(1, 1, 1);
-			glTexCoord2f((texMap.x+8)/128f, texMap.y/128f);
+			glTexCoord2f((texMap.x+8)/128f, texMap.z/128f);
 			glVertex2i(x+size, y);
 			
-			glTexCoord2f(texMap.x/128f, texMap.y/128f);
+			glTexCoord2f(texMap.x/128f, texMap.z/128f);
 			glVertex2i(x, y);
 			
-			glTexCoord2f(texMap.x/128f, (texMap.y+8)/128f);
+			glTexCoord2f(texMap.x/128f, (texMap.z+8)/128f);
 			glVertex2i(x, y+size);
 			
-			glTexCoord2f((texMap.x+8)/128f, (texMap.y+8)/128f);
+			glTexCoord2f((texMap.x+8)/128f, (texMap.z+8)/128f);
 			glVertex2i(x+size, y+size);
 			
 			glEnd();
@@ -267,16 +290,16 @@ public class Renderer {
 			
 			glBegin(GL_QUADS);
 			glColor3f(color.r, color.g, color.b);
-			glTexCoord2f((texMap.x+8)/128f, texMap.y/128f);
+			glTexCoord2f((texMap.x+8)/128f, texMap.z/128f);
 			glVertex2i(x+size, y);
 			
-			glTexCoord2f(texMap.x/128f, texMap.y/128f);
+			glTexCoord2f(texMap.x/128f, texMap.z/128f);
 			glVertex2i(x, y);
 			
-			glTexCoord2f(texMap.x/128f, (texMap.y+8)/128f);
+			glTexCoord2f(texMap.x/128f, (texMap.z+8)/128f);
 			glVertex2i(x, y+size);
 			
-			glTexCoord2f((texMap.x+8)/128f, (texMap.y+8)/128f);
+			glTexCoord2f((texMap.x+8)/128f, (texMap.z+8)/128f);
 			glVertex2i(x+size, y+size);
 			
 			glEnd();

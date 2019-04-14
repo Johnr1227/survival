@@ -11,12 +11,28 @@ import com.cool.audio.Audio.Sound;
 import com.cool.audio.Audio.SoundLength;
 
 public class Sounds {
-	public static Sound MENU_SELECT;
-	public static Sound MENU_CLICK;
+	public static Sound BUTTON_SELECT;
+	
+	public static Sound DIRT_STEP_1;
+	public static Sound DIRT_STEP_2;
+	public static Sound DIRT_STEP_3;
+	
+	public static Sound TREE_BREAK;
+	
+	public static Sound ROCK_BREAK1;
+	public static Sound ROCK_BREAK2;
 	
 	public static void init() throws IOException {
-		MENU_SELECT = Audio.loadSound(unpackResource("ui/button_select.ogg")).setLength(SoundLength.SHORT);
-		MENU_CLICK= Audio.loadSound(unpackResource("ui/button_click.ogg")).setLength(SoundLength.SHORT);
+		BUTTON_SELECT = Audio.loadSound(unpackResource("ui/button_select.ogg")).setLength(SoundLength.SHORT);
+		
+		DIRT_STEP_1 = Audio.loadSound(unpackResource("tiles/step/dirt1.ogg")).setLength(SoundLength.SHORT);
+		DIRT_STEP_2 = Audio.loadSound(unpackResource("tiles/step/dirt2.ogg")).setLength(SoundLength.SHORT);
+		DIRT_STEP_3 = Audio.loadSound(unpackResource("tiles/step/dirt3.ogg")).setLength(SoundLength.SHORT);
+		
+		TREE_BREAK = Audio.loadSound(unpackResource("tiles/break/tree.ogg")).setLength(SoundLength.SHORT);
+		
+		ROCK_BREAK1 = Audio.loadSound(unpackResource("tiles/break/rock1.ogg")).setLength(SoundLength.SHORT);
+		ROCK_BREAK2 = Audio.loadSound(unpackResource("tiles/break/rock2.ogg")).setLength(SoundLength.SHORT);
 	}
 	public static String unpackResource(String path) throws IOException {
 		path = "audio/" + path;

@@ -10,8 +10,8 @@ public class MainMenu extends Menu {
 		createButton(704, 248, 16, 348, Textures.BUTTON_NORMAL, Textures.BUTTON_SELECTED, "START GAME", 40);
 		createButton(704, 132, 16, 232, Textures.BUTTON_NORMAL, Textures.BUTTON_SELECTED, "OPTIONS", 40);
 		createButton(704, 16, 16, 116, Textures.BUTTON_NORMAL, Textures.BUTTON_SELECTED, "QUIT GAME", 40);
-		setButtonSelectSound(Sounds.MENU_SELECT);
-		setButtonClickSound(Sounds.MENU_CLICK);
+		setButtonSelectSound(Sounds.BUTTON_SELECT);
+		setButtonClickSound(Sounds.BUTTON_SELECT);
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class MainMenu extends Menu {
 		if (buttonPressed) {
 			switch (buttonSelected) {
 			case 0: // Start Game
-				Menu.currentMenu = MenuTypes.GAME;
+				Menu.currentMenu = MenuTypes.CHARACTER_CUSTOMIZE;
 				break;
 			case 1: // Options
 				Menu.currentMenu = MenuTypes.OPTIONS;

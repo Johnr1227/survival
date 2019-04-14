@@ -1,5 +1,7 @@
 package com.cool.lib;
 
+import java.util.Random;
+
 public class Color {
 	public float r;
 	public float g;
@@ -11,5 +13,9 @@ public class Color {
 	}
 	public String toString() {
 		return "(" + r + "," + g + "," + b + ")";
+	}
+	public static Color random() {
+		Random random = new Random();
+		return new Color(random.nextFloat(),random.nextFloat(),random.nextFloat());
 	}
 }

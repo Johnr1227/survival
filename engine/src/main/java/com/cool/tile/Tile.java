@@ -1,6 +1,9 @@
 package com.cool.tile;
 
+import com.cool.lib.Renderer;
 import com.cool.lib.Texture;
+import com.cool.lib.Vertex;
+import com.cool.player.Player;
 
 public class Tile {
 	protected Texture texture;
@@ -8,18 +11,25 @@ public class Tile {
 	
 	protected String displayName;
 	
-	public Tile(Texture texture, String name, String displayName) {
+	protected SoundType soundType;
+	
+	public Tile(Texture texture, SoundType soundType, String name, String displayName) {
 		this.texture = texture;
+		this.soundType = soundType;
+		
 		this.tileName = name;
 		this.displayName = displayName;
 	}
+	
 	public Tile() {
 	}
 	
 	public Texture getTexture() {
 		return texture;
 	}
-
+	public void playStepSound() {
+		soundType.playSound(SoundType.STEP);
+	}
 	public void setTexture(Texture texture) {
 		this.texture = texture;
 	}
@@ -34,5 +44,13 @@ public class Tile {
 	}
 	public String toString() {
 		return getDisplayName();
+	}
+
+	public void render(int ogX1, int ogY1, int ogX2, int ogY2, int tWidth) {
+		Renderer.drawTexture(ogX1, ogY1,
+				ogX2, ogY2, texture);
+	}
+	public void onBroken(Player p, Vertex pos) {
+		soundType.playSound(SoundType.BREAK);
 	}
 }

@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL;
 
 import com.cool.audio.Audio;
 import com.cool.lib.Keyboard;
+import com.cool.menu.CharacterCustomize;
 import com.cool.menu.MainMenu;
 import com.cool.menu.Menu;
 
@@ -31,6 +32,8 @@ public class Main {
 	public static Game game;
 	
 	public static boolean windowFocused = false;
+	
+	public static CharacterCustomize characterCustomize;
 
 	public static void main(String[] args) throws IOException {
 		if (!glfwInit()) {
@@ -96,9 +99,10 @@ public class Main {
 			}
 		});
 //		Sounds.MUSIC.loop();
-		game.init();
 		MainMenu mainMenu = new MainMenu();
 		mainMenu.init();
+		characterCustomize = new CharacterCustomize();
+		characterCustomize.init();
 		while (!glfwWindowShouldClose(window)) {
 			glfwPollEvents();
 			if(windowFocused) {
@@ -106,6 +110,14 @@ public class Main {
 					mainMenu.tick();
 					glClear(GL_COLOR_BUFFER_BIT);
 					mainMenu.render();
+					MOUSEX = game.getCursorPosX();
+					MOUSEY = game.getCursorPosY();
+					glfwSwapBuffers(window);
+				}
+				if(Menu.currentMenu == Menu.MenuTypes.CHARACTER_CUSTOMIZE) {
+					characterCustomize.tick();
+					glClear(GL_COLOR_BUFFER_BIT);
+					characterCustomize.render();
 					MOUSEX = game.getCursorPosX();
 					MOUSEY = game.getCursorPosY();
 					glfwSwapBuffers(window);
@@ -119,6 +131,7 @@ public class Main {
 					glfwSwapBuffers(window);
 				}
 			}
+			TICKS++;
 		}
 
 		Audio.destroy();

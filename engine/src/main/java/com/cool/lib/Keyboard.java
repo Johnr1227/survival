@@ -5,20 +5,30 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Keyboard extends GLFWKeyCallback {
 
-	public static boolean[] keys = new boolean[65536];
+	public static boolean[] keysDown = new boolean[65536];
 
-	// The GLFWKeyCallback class is an abstract method that
-	// can't be instantiated by itself and must instead be extended
-	//
+	public static boolean[] keysPressed = new boolean[65536];
+
 	@Override
 	public void invoke(long window, int key, int scancode, int action, int mods) {
-		// TODO Auto-generated method stub
-		keys[key] = action != GLFW_RELEASE;
+		if (key > -1) {
+			keysDown[key] = action != GLFW_RELEASE;
+
+			if (action == GLFW_PRESS) {
+				keysPressed[key] = true;
+			}
+		}
 	}
 
-	// boolean method that returns true if a given key
-	// is pressed.
 	public static boolean isKeyDown(int keycode) {
-		return keys[keycode];
+		return keysDown[keycode];
+	}
+
+	public static boolean isKeyPressed(int keycode) {
+		if (keysPressed[keycode]) {
+			keysPressed[keycode] = false;
+			return true;
+		}
+		return false;
 	}
 }

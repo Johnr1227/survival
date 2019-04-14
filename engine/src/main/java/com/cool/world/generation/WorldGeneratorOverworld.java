@@ -21,17 +21,12 @@ public class WorldGeneratorOverworld extends WorldGenerator {
 
 	@Override
 	public TileObstacle generateObstacle(int x, int z) {
-//		if (SimplexNoise.noise(x / 30f, z / 30f, 1f / seed) > 0.6) {
-//			return Tiles.STONE;
-//		} else {
-//			return null;
-//		}
-//		if(x % 10 < 3 && z % 10 < 3) {
-//			return Tiles.STONE;
-//		}
-//		return null;
-		if(x == 0 && z == 0) {
-			return Tiles.STONE;
+		if (SimplexNoise.noise(x / 30f, z / 30f) > 0.4) {
+			return Tiles.ROCK;
+		} else {
+			if(Math.random() > 0.95) {
+				return Tiles.TREE;
+			}
 		}
 		return null;
 	}

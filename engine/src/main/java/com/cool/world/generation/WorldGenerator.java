@@ -1,7 +1,5 @@
 package com.cool.world.generation;
 
-import java.util.Random;
-
 import com.cool.tile.Tile;
 import com.cool.tile.TileObstacle;
 import com.cool.tile.Tiles;
@@ -13,8 +11,7 @@ public class WorldGenerator {
 		this.seed = seed;
 	}
 	public WorldGenerator() {
-		Random random = new Random();
-		this.seed = random.nextLong();
+		this.seed = System.currentTimeMillis();
 	}
 	public Tile generate (int x, int z) {
 		return Tiles.GRASS;
