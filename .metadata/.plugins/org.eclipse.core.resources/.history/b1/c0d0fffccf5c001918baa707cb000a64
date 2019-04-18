@@ -1,0 +1,10 @@
+package com.cool.particle;
+
+import java.util.ArrayList;
+
+public class Particles {
+	
+	public static ArrayList<Particle> particles = new ArrayList<>();
+	
+	
+}

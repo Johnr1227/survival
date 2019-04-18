@@ -1,0 +1,12 @@
+package com.cool.particles;
+
+import com.cool.lib.Texture;
+import com.cool.particle.ParticleType;
+
+public class ParticleBlock extends ParticleType{
+
+	public ParticleBlock(Texture texture, float minVelZ, float maxVelZ, float minVelX, float maxVelX) {
+		super(texture, minVelZ, maxVelZ, minVelX, maxVelX);
+	}
+
+}

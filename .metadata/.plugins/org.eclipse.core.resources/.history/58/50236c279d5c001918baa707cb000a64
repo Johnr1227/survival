@@ -1,0 +1,14 @@
+package com.cool.tile;
+
+import com.cool.Sounds;
+import com.cool.audio.Audio.Sound;
+
+public class SoundType {
+	public static SoundType DIRT = new SoundType(Sounds.BUTTON_SELECT);
+	
+	public Sound step;
+
+	public SoundType(Sound step) {
+		this.step = step;
+	}
+}

@@ -1,0 +1,25 @@
+package com.cool.particle;
+
+import java.util.ArrayList;
+
+public class Particles {
+	public static ArrayList<Particle> particles = new ArrayList<>();
+	
+	public static void render(Player p, int tWidth) {
+		for(Particle p : particles) {
+			p.render(p, tWidth);
+		}
+	}
+	public static void tick() {
+		for(int i = particles.size(); i > 0; i--) {
+			Particle p = particles.get(i);
+			p.tick();
+			if(p.ticksExisted > 200) {
+				particles.remove(i);
+			}
+		}
+	}
+	public void spawn() {
+		
+	}
+}

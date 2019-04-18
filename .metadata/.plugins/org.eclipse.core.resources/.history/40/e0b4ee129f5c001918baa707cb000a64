@@ -1,0 +1,31 @@
+package com.cool.tile;
+
+import java.util.Random;
+
+import com.cool.Sounds;
+import com.cool.audio.Audio.Sound;
+
+public class SoundType {
+	public static SoundType DIRT = new SoundType(new Sound[] {Sounds.BUTTON_SELECT});
+	
+	
+	public static final int STEP = 0;
+	protected static Random random = new Random();
+	
+	
+	public Sound[] stepSounds;
+
+	public SoundType(Sound[] step) {
+		this.stepSounds = step;
+	}
+	
+	public void playSound(int type) {
+		switch(type) {
+		case STEP:
+			stepSounds[random.nextInt(stepSounds.length)].play();
+			break;
+		default:
+			System.out.println("Failed to play sound type " + type);
+		}
+	}
+}

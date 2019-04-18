@@ -1,0 +1,28 @@
+package com.cool.particle;
+
+import java.util.ArrayList;
+
+import com.cool.particles.ParticleTile;
+
+public class Particles {
+	
+	public static ArrayList<Particle> particles = new ArrayList<>();
+	
+	public static ParticleTile tile = new ParticleTile(15, 40, -40, 40, 10, 60);
+	
+	public static void render(int tWidth) {
+		for(Particle p : particles) {
+			p.render(tWidth);
+		}
+	}
+	public static void tick() {
+		for(Particle p : particles) {
+			p.tick();
+		}
+		for(int i = particles.size()-1; i > 0; i--) {
+			if(particles.get(i).ticksExisted > 300) {
+				particles.remove(i);
+			}
+		}
+	}
+}

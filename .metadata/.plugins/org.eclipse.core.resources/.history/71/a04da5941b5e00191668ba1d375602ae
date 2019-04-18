@@ -1,0 +1,55 @@
+package com.cool.tile;
+
+import com.cool.lib.Renderer;
+import com.cool.lib.Texture;
+import com.cool.lib.Vertex;
+
+public class Tile {
+	protected Texture texture;
+	protected String localizedName;
+	
+	protected String unlocalizedName;
+	
+	protected SoundType soundType;
+	
+	public Tile(Texture texture, SoundType soundType, String name, String displayName) {
+		this.texture = texture;
+		this.soundType = soundType;
+		
+		this.localizedName = name;
+		this.unlocalizedName = displayName;
+	}
+	
+	public Tile() {
+	}
+	
+	public Texture getTexture() {
+		return texture;
+	}
+	public void playStepSound() {
+		soundType.playSound(SoundType.STEP);
+	}
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+	public String getTileName() {
+		return localizedName;
+	}
+	public void setTileName (String tileName) {
+		this.localizedName = tileName;
+	}
+	public String getDisplayName() {
+		return unlocalizedName == null ? localizedName : unlocalizedName;
+	}
+	public String toString() {
+		return getDisplayName();
+	}
+
+	public void render(int ogX1, int ogY1, int ogX2, int ogY2, int tWidth) {
+		Renderer.drawTexture(ogX1, ogY1,
+				ogX2, ogY2, texture);
+	}
+	public void onBroken(Vertex pos) {
+		soundType.playSound(SoundType.BREAK);
+	}
+}

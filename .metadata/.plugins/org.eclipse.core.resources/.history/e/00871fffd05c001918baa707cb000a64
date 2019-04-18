@@ -1,0 +1,23 @@
+package com.cool.particles;
+
+import com.cool.lib.Vertex;
+import com.cool.particle.Particle;
+import com.cool.particle.ParticleType;
+import com.cool.particle.Particles;
+import com.cool.tile.Tile;
+
+public class ParticleTile extends ParticleType{
+	
+	public ParticleTile(float minVelZ, float maxVelZ, float minVelX, float maxVelX) {
+		super(null, minVelZ, maxVelZ, minVelX, maxVelX);
+	}
+	public Particle create(Vertex pos, Tile t) {
+		Particle p = new Particle(t.getTexture(),pos,
+				new Vertex(
+						(int)(Math.random() * (maxVelX-minVelX) + minVelX),
+						(int)(Math.random() * (maxVelZ-minVelZ) + minVelZ)),);
+		Particles.particles.add(p);
+		return p;
+	}
+
+}

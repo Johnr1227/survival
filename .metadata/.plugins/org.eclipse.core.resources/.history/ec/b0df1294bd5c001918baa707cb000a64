@@ -1,0 +1,27 @@
+package com.cool.tiles;
+
+import com.cool.Textures;
+import com.cool.lib.Renderer;
+import com.cool.tile.SoundType;
+import com.cool.tile.Tile;
+
+public class TileTree extends Tile {
+	
+	public TileTree() {
+		setTexture(Textures.TREE);
+		setTileName("tree");
+		this.soundType = SoundType.DIRT;
+	}
+	@Override
+	public String getDisplayName() {
+		return "Tree";
+	}
+	@Override
+	public void render(int ogX1, int ogY1, int ogX2, int ogY2) {
+		ogX1 -= 1;
+		ogY1 -= 1;
+		ogX2 += 1;
+		ogY2 += 1;
+		Renderer.drawTexture(ogY1, ogY1, ogX2, ogY2, texture);
+	}
+}

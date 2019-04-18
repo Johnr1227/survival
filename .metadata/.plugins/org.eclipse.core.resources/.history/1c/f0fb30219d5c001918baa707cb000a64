@@ -1,0 +1,11 @@
+package com.cool.tile;
+
+import com.cool.audio.Audio.Sound;
+
+public class SoundType {
+	public Sound step;
+
+	public SoundType(Sound step) {
+		this.step = step;
+	}
+}

@@ -1,0 +1,16 @@
+package com.cool.particles;
+
+import com.cool.lib.Texture;
+import com.cool.particle.ParticleType;
+import com.cool.tile.Tile;
+
+public class ParticleTile extends ParticleType{
+
+	public Tile t;
+	
+	public ParticleTile(Texture texture, float minVelZ, float maxVelZ, float minVelX, float maxVelX,Tile t) {
+		super(texture, minVelZ, maxVelZ, minVelX, maxVelX);
+		this.t = t;
+	}
+
+}

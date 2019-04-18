@@ -1,0 +1,58 @@
+1554655265287	Rename field 'winowSelecte'
+1554655394168	Rename field 'winowSelected'
+1554656928081	Rename local variable 'arg1'
+1554656940596	Rename field 'windowSelected'
+1554657435195	Rename resource 'forward'
+1554657565824	Rename resource 'down'
+1554657596971	Rename enum constant 'DOWN'
+1554657603430	Rename enum constant 'LEFT'
+1554663339322	Rename local variable 'tileY'
+1554666952954	Rename type 'TileObsticle'
+1554669531384	Extract local variable 'xAvg'
+1554669544645	Extract local variable 'yAvg'
+1554760979376	Copy elements
+1554761014975	Rename resource 'walking1'
+1554761019738	Rename resource 'walking2'
+1554761025648	Rename resource 'walking1,..'
+1554766206318	Delete elements
+1554766207864	Copy folders
+1554766227855	Rename resource 'walking1'
+1554766232188	Rename resource 'walking2'
+1554766236808	Rename resource 'walking1..'
+1554766247173	Delete elements
+1554766249048	Copy folders
+1554849199258	Delete elements
+1554849458032	Delete elements
+1554849473870	Rename field 'MENU_SELECT'
+1554926044460	Delete elements
+1554957549621	Delete elements
+1554957559385	Delete elements
+1555011967627	Delete elements
+1555011979078	Copy file
+1555012159898	Copy file
+1555012608082	Delete elements
+1555012751300	Delete elements
+1555016487897	Delete element
+1555016667352	Rename field 'step'
+1555016670884	Rename field 'stepSounsd'
+1555017531752	Delete elements
+1555017560151	Rename resource 'dirt6.ogg'
+1555017819092	Rename method 'onStep'
+1555020379465	Rename field 'y'
+1555022590660	Rename field 'keys'
+1555029728525	Copy compilation unit
+1555031130962	Rename local variable 'renderLayer'
+1555031135061	Rename field 'renderLayer'
+1555036144994	Rename type 'ParticleBlock'
+1555100547023	Delete elements
+1555105818835	Delete element
+1555109428911	Rename resource 'tree_break.ogg'
+1555111491841	Rename local variable 'step'
+1555113037272	Rename resource 'rock.ogg'
+1555113296272	Copy compilation unit
+1555113332946	Rename type 'TileStone'
+1555113337350	Rename field 'STONE'
+1555121620903	Rename resource 'carrot.png'
+1555180257913	Rename field 'SPRNT'
+1555180849131	Rename field 'localizedName'
+1555180859903	Rename local variable 'localizedName'

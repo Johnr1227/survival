@@ -29,6 +29,7 @@ public class MainMenu extends Menu {
 				System.exit(-1);
 				break;
 			}
+			buttonPressed = false;
 		}
 	}
 

@@ -1,0 +1,12 @@
+package com.cool.item;
+
+import com.cool.lib.Texture;
+import com.cool.tile.Tile;
+
+public class ItemTile extends Item {
+
+	public ItemTile(Tile tile) {
+		super(tile.texture, tile.getTileName(), tile.getDisplayName());
+	}
+
+}

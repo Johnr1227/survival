@@ -1,0 +1,28 @@
+package com.cool.tiles;
+
+import com.cool.Textures;
+import com.cool.lib.Renderer;
+import com.cool.tile.SoundType;
+import com.cool.tile.TileObstacle;
+
+public class TileTree extends TileObstacle {
+	
+	public TileTree() {
+		super();
+		setTexture(Textures.TREE);
+		setTileName("tree");
+		this.soundType = SoundType.DIRT;
+	}
+	@Override
+	public String getDisplayName() {
+		return "Tree";
+	}
+	@Override
+	public void render(int ogX1, int ogY1, int ogX2, int ogY2, int tWidth) {
+		ogX1 -= tWidth;
+		ogY1 -= tWidth;
+		ogX2 += tWidth;
+		ogY2 += tWidth;
+		Renderer.drawTexture3d(ogX1, ogY1, 1, ogX2, ogY2, 1, texture);
+	}
+}

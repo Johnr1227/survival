@@ -1,0 +1,15 @@
+package com.cool.particle;
+
+import com.cool.lib.Texture;
+
+public class ParticleType {
+	public Texture texture;
+	public float minVelZ;
+	public float maxVelZ;
+	public float minVelX;
+	public float maxVelX;
+	
+	public ParticleType (Texture texture, float minVelZ, float maxVelZ, float minVelX, float maxVelX) {
+		
+	}
+}

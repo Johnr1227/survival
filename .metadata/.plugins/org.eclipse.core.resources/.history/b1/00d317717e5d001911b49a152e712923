@@ -1,0 +1,18 @@
+package com.cool.tiles;
+
+import com.cool.Textures;
+import com.cool.tile.SoundType;
+import com.cool.tile.Tile;
+
+public class TileStone extends Tile {
+	
+	public TileStone() {
+		setTexture(Textures.GRASS);
+		setTileName("grass");
+		this.soundType = SoundType.DIRT;
+	}
+	@Override
+	public String getDisplayName() {
+		return "Grass";
+	}
+}

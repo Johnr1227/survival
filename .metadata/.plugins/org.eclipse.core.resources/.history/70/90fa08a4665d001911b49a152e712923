@@ -1,0 +1,31 @@
+package com.cool.particle;
+
+public class ParticleType {
+
+	public float minVelX;
+	public float maxVelX;
+	
+	public float minVelY;
+	public float maxVelY;
+	
+	public float minVelZ;
+	public float maxVelZ;
+
+	
+	public float minSize;
+	public float maxSize;
+	
+	public ParticleType(float minVelX, float maxVelX, float minVelY, float maxVelY, float minVelZ, float maxVelZ, float minSize, float maxSize) {
+		this.minVelX = minVelX;
+		this.maxVelX = maxVelX;
+		
+		this.minVelY = minVelY;
+		this.maxVelY = maxVelY;
+		
+		this.minVelZ = minVelZ;
+		this.maxVelZ = maxVelZ;
+		
+		this.minSize = minSize;
+		this.maxSize = maxSize;
+	}
+}

@@ -11,7 +11,7 @@ public class SoundType {
 			Sounds.DIRT_STEP_3
 	}, null);
 	public static SoundType TREE = new SoundType(null, new Sound[] {Sounds.TREE_BREAK});
-	public static SoundType ROCK = new SoundType(null, new Sound[] {Sounds.ROCK_BREAK1, Sounds.ROCK_BREAK2});
+	public static SoundType STONE = new SoundType(null, new Sound[] {Sounds.ROCK_BREAK1, Sounds.ROCK_BREAK2});
 	
 	
 	public static final int STEP = 0;

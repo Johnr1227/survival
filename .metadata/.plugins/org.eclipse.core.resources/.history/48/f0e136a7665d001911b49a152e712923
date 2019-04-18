@@ -1,0 +1,37 @@
+package com.cool.particle;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import com.cool.player.Player;
+
+public class Particles {
+	public static ArrayList<Particle> particles = new ArrayList<>();
+	
+	public static void render(double rX, double rY, Player player, int tWidth) {
+		for(Particle p : particles) {
+			p.render(rX, rY, player, tWidth);
+		}
+	}
+	public static void tick() {
+		for(int i = particles.size(); i > 0; i--) {
+			Particle p = particles.get(i);
+			p.tick();
+			if(p.ticksExisted > 200) {
+				particles.remove(i);
+			}
+		}
+	}
+	public void spawn(ParticleType type, int amt, float x, float y, float z) {
+		Random random = new Random();
+		for(int i = 0; i < amt; i++) {
+			spawn(new Particle(x,y,z,random.ne));
+		}
+	}
+	public void spawn(Particle p) {
+		
+	}
+	private float randomBetween(float min, float max, Random random) {
+		return random.nextFloat()*(max-min)+min;
+	}
+}

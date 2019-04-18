@@ -1,0 +1,12 @@
+package com.cool.item;
+
+import com.cool.lib.Texture;
+
+public class Item {
+	public Texture texture;
+	public String localizedName;
+	
+	public Item(Texture texture) {
+		this.texture = texture;
+	}
+}

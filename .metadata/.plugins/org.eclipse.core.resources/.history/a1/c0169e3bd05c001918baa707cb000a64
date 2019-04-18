@@ -1,0 +1,12 @@
+package com.cool.particle;
+
+import java.util.ArrayList;
+
+import com.cool.particles.ParticleTile;
+
+public class Particles {
+	
+	public static ArrayList<Particle> particles = new ArrayList<>();
+	
+	public static ParticleTile tile = new ParticleTile(15, 40, -40, 40);
+}

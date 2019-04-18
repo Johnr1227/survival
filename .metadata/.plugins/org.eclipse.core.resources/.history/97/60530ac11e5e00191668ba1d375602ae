@@ -1,0 +1,5 @@
+package com.cool.item;
+
+public class Items {
+	public static Item carrot = new Item();
+}

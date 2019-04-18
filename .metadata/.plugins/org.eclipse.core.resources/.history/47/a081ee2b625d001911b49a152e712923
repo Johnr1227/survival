@@ -1,0 +1,10 @@
+package com.cool.particle;
+
+public class Particles {
+	public static void render(int tWidth) {
+		
+	}
+	public static void tick() {
+		
+	}
+}

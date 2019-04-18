@@ -1,0 +1,66 @@
+1554414626042	Delete elements
+1554414911559	Delete elements
+1554415404062	Delete elements
+1554415683081	Delete elements
+1554415687143	Delete element
+1554421483125	Copy compilation unit
+1554421495516	Rename type 'Position'
+1554422545907	Delete element
+1554422571764	Move file
+1554427559843	Rename type 'Keyboardd'
+1554430392482	Rename local variable 'offsetY'
+1554498330643	Extract local variable 'texture'
+1554498356191	Extract local variable 'tileX'
+1554498364743	Extract local variable 'tileY'
+1554501274088	Rename field 'clicked'
+1554501281077	Rename field 'hover'
+1554501286894	Rename field 'normal'
+1554517901519	Rename resource 'media.io_347167__davidsraba__bleep-sound.ogg'
+1554517920511	Move compilation unit
+1554558141107	Rename resource 'button_normal.png'
+1554558150140	Rename resource 'button_selected.png'
+1554558158104	Rename resource 'button_selectid.png'
+1554560047088	Delete element
+1554560113001	Rename resource 'ascii.png'
+1554561314871	Move file
+1554565175496	Rename local variable 'column'
+1554565182541	Rename local variable 'row'
+1554565187075	Rename local variable 'roo'
+1554567874143	Rename local variable 'btnSize'
+1554568461347	Rename resource 'button_normal.png'
+1554568467402	Rename resource 'button.png'
+1554568476020	Rename resource 'button_normaal.png'
+1554571797365	Rename resource 'click.ogg'
+1554572682730	Rename resource 'button_select.ogg'
+1554572687831	Rename resource 'button_click.ogg'
+1554572699064	Rename resource 'media.io_Blip_Select.ogg'
+1554572705477	Rename resource 'media.io_Blip_Select2.ogg'
+1554576520233	Rename resource 'player_forward_idle_eyes.png'
+1554576527186	Rename resource 'player_forward_idle_hairstyle1.png'
+1554576561166	Rename resource 'player_forward_idle_shirt.png'
+1554576753902	Rename resource 'player_forward_eyes.png'
+1554576763144	Rename resource 'player_forward_hairstyle1.png'
+1554576769426	Rename resource 'player_forward_idle_base.png'
+1554576774897	Rename resource 'player_forward_idle_pants.png'
+1554576780410	Rename resource 'player_forward_idle_skin.png'
+1554576786041	Rename resource 'player_forward_idle_sleeves.png'
+1554576790962	Rename resource 'player_forward_shirt.png'
+1554579151039	Delete element
+1554579159903	Rename resource 'player_forward_idle_hairstyle1.png'
+1554579615518	Move file
+1554579619197	Move file
+1554579623415	Move files
+1554579628030	Move files
+1554579631081	Move files
+1554580221136	Rename resource 'forward_idle_base.png'
+1554580227783	Rename resource 'forward_idle_pants.png'
+1554580233243	Rename resource 'forward_idle_sleeves.png'
+1554580239662	Rename resource 'forward_idle_skin.png'
+1554580261218	Rename resource 'forward_eyes.png'
+1554580272408	Rename resource 'forward_hairstyle1.png'
+1554580279185	Rename resource 'forward_hairstyle2.png'
+1554580285162	Rename resource 'forward_hairstyle3.png'
+1554580290880	Rename resource 'forward_hairstyle4.png'
+1554580297848	Rename resource 'forward_hairstyle5.png'
+1554580303401	Rename resource 'forward_shirt.png'
+1554590755030	Rename resource 'walking'

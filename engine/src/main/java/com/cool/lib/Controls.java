@@ -35,5 +35,6 @@ public class Controls {
 	public static int HOTBAR_SLOT_11 = GLFW_KEY_9;
 	public static int HOTBAR_SLOT_12 = GLFW_KEY_0;
 	
-	public static int OEPN_INVENTORY = GLFW_KEY_C;
+	public static int OEPN_INVENTORY = GLFW_KEY_Q;
+	public static int CRAFT = GLFW_KEY_C;
 }

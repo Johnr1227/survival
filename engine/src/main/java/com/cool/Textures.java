@@ -11,7 +11,7 @@ import com.cool.lib.Texture;
 public class Textures {
 	// Tiles
 	public static Texture GRASS;
-	public static Texture ROCK;
+	public static Texture STONE;
 	public static Texture TREE;
 	
 	// UI
@@ -177,9 +177,14 @@ public class Textures {
 	 * 
 	 * **/
 	
+	// Items
+	
+	public static Texture LOG;
+	public static Texture ACORN;
+	
 	public static void setTextures() throws IOException {
 		GRASS = Texture.loadTexture(unpackResource("tiles/grass.png"));
-		ROCK = Texture.loadTexture(unpackResource("tiles/stone.png"));
+		STONE = Texture.loadTexture(unpackResource("tiles/stone.png"));
 		TREE = Texture.loadTexture(unpackResource("tiles/tree.png"));
 		
 		BUTTON_NORMAL = Texture.loadTexture(unpackResource("ui/button_normal.png"));
@@ -322,6 +327,9 @@ public class Textures {
 		 * 
 		 * 
 		 * **/
+		// Items
+		LOG = Texture.loadTexture(unpackResource("item/log.png"));
+		ACORN = Texture.loadTexture(unpackResource("item/acorn.png"));
 	}
 	
 	public static String unpackResource(String path) throws IOException {

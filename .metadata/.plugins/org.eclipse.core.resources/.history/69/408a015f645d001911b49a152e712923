@@ -1,0 +1,12 @@
+package com.cool.particles;
+
+import com.cool.lib.Texture;
+import com.cool.particle.Particle;
+
+public class ParticleTile extends Particle {
+
+	public ParticleTile(float x, float y, float z, float velX, float velY, float velZ, float size, Texture t) {
+		super(x, y, z, velX, velY, velZ, size, t);
+	}
+	
+}

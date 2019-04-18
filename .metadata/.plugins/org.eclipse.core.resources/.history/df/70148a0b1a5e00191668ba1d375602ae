@@ -1,0 +1,14 @@
+package com.cool.lib;
+
+import static org.lwjgl.glfw.GLFW.*;
+
+public class Controls {
+	public static int MOVE_UP = GLFW_KEY_UP;
+	public static int MOVE_DOWN = GLFW_KEY_DOWN;
+	public static int MOVE_LEFT = GLFW_KEY_LEFT;
+	public static int MOVE_RIGHT = GLFW_KEY_RIGHT;
+	
+	public static int INTERACT = GLFW_KEY_Z;
+	public static int BREAK = GLFW_KEY_X;
+	
+}

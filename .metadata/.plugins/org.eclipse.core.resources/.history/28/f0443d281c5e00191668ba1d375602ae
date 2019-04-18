@@ -1,0 +1,17 @@
+package com.cool.item;
+
+import com.cool.lib.Texture;
+import com.cool.player.Player;
+
+public class Item {
+	public Texture texture;
+	public String itemName;
+	
+	public Item(Texture texture, String itemName) {
+		this.texture = texture;
+		this.itemName = itemName;
+	}
+	public void onUse(Player p) {
+		
+	}
+}
