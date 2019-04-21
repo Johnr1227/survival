@@ -1,0 +1,34 @@
+package com.cool.item;
+
+import com.cool.player.Player;
+import com.cool.tile.TileObstacle;
+import com.cool.tile.TileObstacleAndFloor;
+
+public class ItemTileObstacleAndFloor extends ItemTileObstacle {
+
+	public TileObstacleAndFloor t;
+	
+	public ItemTileObstacleAndFloor(TileObstacleAndFloor wOOD_PLANKS) {
+		super(wOOD_PLANKS.getTexture(), wOOD_PLANKS.getTileName(), wOOD_PLANKS.getDisplayName());
+		this.t = wOOD_PLANKS;
+		this.maxStackSize = 99;
+	}
+	@Override
+	public boolean onUse(Player p) {
+		if(p.getFacingObstacle() == null) {
+			p.setFacingObstacle(t);
+			p.takeItem(this, 1);
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public boolean onSecondaryUse(Player p) {
+		if(p.getFacingTile() == null) {
+			p.setFacingTile(t);
+			p.takeItem(this, 1);
+			return true;
+		}
+		return false;
+	}
+}

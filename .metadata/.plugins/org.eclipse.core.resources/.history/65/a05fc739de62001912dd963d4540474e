@@ -1,0 +1,15 @@
+package crafting;
+
+import java.util.ArrayList;
+
+public class CraftingManager {
+	
+	public static ArrayList<CraftingRecipe> recipes = new ArrayList<>();
+	
+	public static void init() {
+		addCraftingRecipe(new CraftingRecipe( input));
+	}
+	public static void addCraftingRecipe(CraftingRecipe recipe) {
+		recipes.add(recipe);
+	}
+}

@@ -6,7 +6,7 @@ import com.cool.world.generation.WorldGenerator;
 
 public class World {
 	public Tile[][] tiles;
-	public TileObstacle[][] obstacles;
+	public Tile[][] obstacles;
 	
 	public World (WorldGenerator generator, int xSize, int zSize) {
 		tiles = new Tile[xSize][zSize];

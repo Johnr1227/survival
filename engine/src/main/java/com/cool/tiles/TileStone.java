@@ -20,7 +20,7 @@ public class TileStone extends TileObstacle {
 	}
 	@Override
 	public void onBroken(Player p, Vertex pos) {
-		p.giveItem(Items.stone,1);
+		p.giveItem(Items.STONE,1);
 		super.onBroken(p,pos);
 	}
 }

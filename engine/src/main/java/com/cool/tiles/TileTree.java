@@ -30,7 +30,7 @@ public class TileTree extends TileObstacle {
 		return "Tree";
 	}
 	@Override
-	public void render(Vertex pos, int ogX1, int ogY1, int ogX2, int ogY2, int tWidth) {
+	public void render(Player p, Vertex pos, int ogX1, int ogY1, int ogX2, int ogY2, int tWidth) {
 		ogX1 -= tWidth;
 		ogY1 -= tWidth;
 		ogX2 += tWidth;
@@ -53,7 +53,7 @@ public class TileTree extends TileObstacle {
 		for(int i = 0; i < 70; i++) {
 			Particles.spawn(new ParticleTile(this,2), 1, pos.x + random.nextFloat(), 0, pos.z + random.nextFloat());
 		}
-		p.giveItem(Items.log, random.nextInt(3)+1);
-		p.giveItem(Items.acorn, random.nextInt(9));
+		p.giveItem(Items.LOG, random.nextInt(3)+1);
+		p.giveItem(Items.ACORN, random.nextInt(9));
 	}
 }

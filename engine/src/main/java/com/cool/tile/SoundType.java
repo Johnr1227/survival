@@ -10,6 +10,12 @@ public class SoundType {
 			Sounds.DIRT_STEP_1,Sounds.DIRT_STEP_2,
 			Sounds.DIRT_STEP_3
 	}, null);
+	public static SoundType WOOD = new SoundType(new Sound[] {
+			Sounds.WOOD_STEP_1,Sounds.WOOD_STEP_2,
+			Sounds.WOOD_STEP_3,Sounds.WOOD_STEP_4,
+			Sounds.WOOD_STEP_5
+	}, new Sound[] {Sounds.TREE_BREAK});
+	
 	public static SoundType TREE = new SoundType(null, new Sound[] {Sounds.TREE_BREAK});
 	public static SoundType STONE = new SoundType(null, new Sound[] {Sounds.ROCK_BREAK1, Sounds.ROCK_BREAK2});
 	

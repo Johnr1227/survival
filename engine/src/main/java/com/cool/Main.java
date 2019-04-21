@@ -1,6 +1,7 @@
 package com.cool;
 
 import static org.lwjgl.glfw.GLFW.*;
+
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.IOException;
@@ -14,6 +15,8 @@ import com.cool.menu.CharacterCustomize;
 import com.cool.menu.MainMenu;
 import com.cool.menu.Menu;
 import com.cool.menu.SaveMenu;
+
+import com.cool.crafting.CraftingManager;
 
 public class Main {
 
@@ -45,7 +48,7 @@ public class Main {
 
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
-		window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Top Down", 0, 0);
+		window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "COOL GAME", 0, 0);
 		if (window == 0) {
 			throw new IllegalStateException("Failed to create window!");
 		}
@@ -99,6 +102,7 @@ public class Main {
 			}
 		});
 //		Sounds.MUSIC.loop();
+		CraftingManager.init();
 		mainMenu = new MainMenu();
 		mainMenu.init();
 		worldMenu = new SaveMenu();

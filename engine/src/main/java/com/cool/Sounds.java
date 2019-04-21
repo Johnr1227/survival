@@ -17,6 +17,12 @@ public class Sounds {
 	public static Sound DIRT_STEP_2;
 	public static Sound DIRT_STEP_3;
 	
+	public static Sound WOOD_STEP_1;
+	public static Sound WOOD_STEP_2;
+	public static Sound WOOD_STEP_3;
+	public static Sound WOOD_STEP_4;
+	public static Sound WOOD_STEP_5;
+	
 	public static Sound TREE_BREAK;
 	
 	public static Sound ROCK_BREAK1;
@@ -28,6 +34,12 @@ public class Sounds {
 		DIRT_STEP_1 = Audio.loadSound(unpackResource("tiles/step/dirt1.ogg")).setLength(SoundLength.SHORT);
 		DIRT_STEP_2 = Audio.loadSound(unpackResource("tiles/step/dirt2.ogg")).setLength(SoundLength.SHORT);
 		DIRT_STEP_3 = Audio.loadSound(unpackResource("tiles/step/dirt3.ogg")).setLength(SoundLength.SHORT);
+		
+		WOOD_STEP_1 = Audio.loadSound(unpackResource("tiles/step/wood1.ogg")).setLength(SoundLength.SHORT);
+		WOOD_STEP_2 = Audio.loadSound(unpackResource("tiles/step/wood2.ogg")).setLength(SoundLength.SHORT);
+		WOOD_STEP_3 = Audio.loadSound(unpackResource("tiles/step/wood3.ogg")).setLength(SoundLength.SHORT);
+		WOOD_STEP_4 = Audio.loadSound(unpackResource("tiles/step/wood4.ogg")).setLength(SoundLength.SHORT);
+		WOOD_STEP_5 = Audio.loadSound(unpackResource("tiles/step/wood5.ogg")).setLength(SoundLength.SHORT);
 		
 		TREE_BREAK = Audio.loadSound(unpackResource("tiles/break/tree.ogg")).setLength(SoundLength.SHORT);
 		

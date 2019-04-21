@@ -9,10 +9,6 @@ import org.apache.commons.io.IOUtils;
 import com.cool.lib.Texture;
 
 public class Textures {
-	// Tiles
-	public static Texture GRASS;
-	public static Texture STONE;
-	public static Texture TREE;
 	
 	// UI
 	public static Texture BUTTON_NORMAL;
@@ -182,11 +178,15 @@ public class Textures {
 	public static Texture LOG;
 	public static Texture ACORN;
 	
+	// Tiles
+	
+	public static Texture GRASS;
+	public static Texture STONE;
+	public static Texture TREE;
+	public static Texture WOOD_PLANKS;
+	public static Texture WORKBENCH;
+	
 	public static void setTextures() throws IOException {
-		GRASS = Texture.loadTexture(unpackResource("tiles/grass.png"));
-		STONE = Texture.loadTexture(unpackResource("tiles/stone.png"));
-		TREE = Texture.loadTexture(unpackResource("tiles/tree.png"));
-		
 		BUTTON_NORMAL = Texture.loadTexture(unpackResource("ui/button_normal.png"));
 		BUTTON_SELECTED = Texture.loadTexture(unpackResource("ui/button_selected.png"));
 		FONT = Texture.loadTexture(unpackResource("ui/font.png"));
@@ -330,6 +330,13 @@ public class Textures {
 		// Items
 		LOG = Texture.loadTexture(unpackResource("item/log.png"));
 		ACORN = Texture.loadTexture(unpackResource("item/acorn.png"));
+		
+		// Tiles
+		GRASS = Texture.loadTexture(unpackResource("tiles/grass.png"));
+		STONE = Texture.loadTexture(unpackResource("tiles/stone.png"));
+		TREE = Texture.loadTexture(unpackResource("tiles/tree.png"));
+		WOOD_PLANKS = Texture.loadTexture(unpackResource("tiles/wood_planks.png"));
+		WORKBENCH = Texture.loadTexture(unpackResource("tiles/workbench.png"));
 	}
 	
 	public static String unpackResource(String path) throws IOException {

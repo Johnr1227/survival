@@ -20,12 +20,9 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="com.cool.Sounds"/>
 <fullyQualifiedTypeName name="com.cool.tiles.TileTree"/>
-<fullyQualifiedTypeName name="com.cool.tile.TileObstacle"/>
 <fullyQualifiedTypeName name="com.cool.world.generation.SimplexNoise"/>
 <fullyQualifiedTypeName name="com.cool.lib.Vertex"/>
 <fullyQualifiedTypeName name="com.cool.particle.Particle"/>
-<fullyQualifiedTypeName name="com.cool.tile.Tiles"/>
-<fullyQualifiedTypeName name="com.cool.tile.Tile"/>
 <fullyQualifiedTypeName name="com.cool.particles.ParticleTile"/>
 <fullyQualifiedTypeName name="com.cool.player.Player"/>
 <fullyQualifiedTypeName name="com.cool.tile.SoundType"/>
@@ -33,10 +30,7 @@
 <fullyQualifiedTypeName name="com.cool.particle.ParticleType"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="com.cool.item.Item"/>
-<fullyQualifiedTypeName name="com.cool.Textures"/>
 <fullyQualifiedTypeName name="com.cool.lib.Texture"/>
-<fullyQualifiedTypeName name="com.cool.item.ItemStack"/>
-<fullyQualifiedTypeName name="com.cool.item.Items"/>
 <fullyQualifiedTypeName name="com.cool.menu.CharacterCustomize"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="com.cool.lib.Renderer"/>
@@ -46,9 +40,18 @@
 <fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
 <fullyQualifiedTypeName name="com.cool.lib.Color"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="com.cool.lib.Keyboard"/>
-<fullyQualifiedTypeName name="com.cool.lib.Controls"/>
 <fullyQualifiedTypeName name="com.cool.menu.Menu.MenuTypes"/>
 <fullyQualifiedTypeName name="com.cool.lib.IO"/>
+<fullyQualifiedTypeName name="com.cool.tile.Tile"/>
+<fullyQualifiedTypeName name="com.cool.tile.TileObstacle"/>
+<fullyQualifiedTypeName name="com.cool.tile.Tiles"/>
+<fullyQualifiedTypeName name="com.cool.lib.Controls"/>
+<fullyQualifiedTypeName name="com.cool.item.ItemTileObstacle"/>
+<fullyQualifiedTypeName name="com.cool.Textures"/>
+<fullyQualifiedTypeName name="com.cool.lib.Keyboard"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.cool.item.Items"/>
+<fullyQualifiedTypeName name="com.cool.item.ItemStack"/>
+<fullyQualifiedTypeName name="crafting.CraftingRecipe"/>
+<fullyQualifiedTypeName name="crafting.CraftingManager"/>
 </qualifiedTypeNameHistroy>

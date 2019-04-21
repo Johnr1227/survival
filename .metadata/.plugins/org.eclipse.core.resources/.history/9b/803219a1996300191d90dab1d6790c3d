@@ -1,0 +1,26 @@
+package com.cool.tiles;
+
+import com.cool.Textures;
+import com.cool.item.Items;
+import com.cool.lib.Vertex;
+import com.cool.player.Player;
+import com.cool.tile.SoundType;
+import com.cool.tile.TileObstacle;
+
+public class TileWoodPlanks extends TileObstacle {
+	
+	public TileWoodPlanks() {
+		setTexture(Textures.WOOD_PLANKS);
+		setTileName("planks");
+		this.soundType = SoundType.TREE;
+	}
+	@Override
+	public String getDisplayName() {
+		return "Wood Planks";
+	}
+	@Override
+	public void onBroken(Player p, Vertex pos) {
+		p.giveItem(Items.WOOD_PLANKS,1);
+		super.onBroken(p,pos);
+	}
+}

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFW;
 
+import com.cool.Controls;
 import com.cool.audio.Audio.Sound;
-import com.cool.lib.Controls;
 import com.cool.lib.Keyboard;
 import com.cool.lib.Renderer;
 import com.cool.lib.Texture;

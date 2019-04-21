@@ -9,3 +9,17 @@
 1555607592419	Rename field 'ROCK'
 1555607604589	Rename field 'ROCK'
 1555607608769	Rename type 'TileRock'
+1555704114419	Rename method 'addRecipe'
+1555704219909	Rename field 'stone'
+1555704230648	Rename field 'acorn'
+1555704235484	Rename field 'log'
+1555704239583	Rename field 'carrot'
+1555708059945	Copy package
+1555708072897	Delete element
+1555730003747	Rename field 'slotNumber'
+1555783174084	Copy compilation unit
+1555783795854	Copy compilation unit
+1555784479095	Move compilation unit
+1555784549967	Copy compilation unit
+1555784716561	Copy compilation unit
+1555785092924	Rename local variable 'wOOD_PLANKS'

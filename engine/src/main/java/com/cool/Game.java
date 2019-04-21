@@ -11,7 +11,6 @@ import com.cool.item.ItemStack;
 import com.cool.item.ItemTileObstacle;
 import com.cool.item.Items;
 import com.cool.lib.Color;
-import com.cool.lib.Controls;
 import com.cool.lib.Direction;
 import com.cool.lib.IO;
 import com.cool.lib.Keyboard;
@@ -22,8 +21,10 @@ import com.cool.particle.Particles;
 import com.cool.particles.ParticleTile;
 import com.cool.player.Player;
 import com.cool.tile.Tile;
-import com.cool.tile.TileObstacle;
 import com.cool.world.Worlds;
+
+import com.cool.crafting.CraftingManager;
+import com.cool.crafting.CraftingRecipe;
 
 public class Game extends Menu implements Serializable {
 
@@ -35,22 +36,25 @@ public class Game extends Menu implements Serializable {
 	public boolean debug = false;
 
 	public boolean invOpened = false;
+	public int iSelectedNumber = 0;
+
 	public boolean paused = false;
 
-	public int slotNumber;
+	public boolean crafting = false;
+	public int cSelectedRecipe = 0;
 
-	public int iSelectedNumber = 0;
+	public int saveSlotNumber;
 
 	public Game(long window) {
 		this.window = window;
 	}
 
 	public void init() {
-		player = new Player(Worlds.OVERWORLD, 510, 510, Direction.SOUTH, Main.characterCustomize.eyeColor,
+		player = new Player(Worlds.OVERWORLD, 10, 10, Direction.SOUTH, Main.characterCustomize.eyeColor,
 				Main.characterCustomize.shirtColor, Main.characterCustomize.hairColor,
 				Main.characterCustomize.pantsColor, Main.characterCustomize.sleeveColor,
 				Main.characterCustomize.skinColor, Main.characterCustomize.hairstyle);
-		IO.write("./save" + slotNumber, this);
+		IO.write("./save" + saveSlotNumber, this);
 	}
 
 	public void tick() {
@@ -144,6 +148,36 @@ public class Game extends Menu implements Serializable {
 					player.hotbar[moveySlot] = player.inventory.get(iSelectedNumber);
 					player.inventory.set(iSelectedNumber, hbTingy);
 				}
+			} else if (crafting) {
+				if (Keyboard.isKeyPressed(Controls.MOVE_UP)) {
+					Sounds.BUTTON_SELECT.play();
+					cSelectedRecipe--;
+					if (cSelectedRecipe < 0) {
+						cSelectedRecipe = CraftingManager.recipes.size() - 1;
+					}
+				}
+				if (Keyboard.isKeyPressed(Controls.MOVE_DOWN)) {
+					Sounds.BUTTON_SELECT.play();
+					cSelectedRecipe++;
+					if (cSelectedRecipe > CraftingManager.recipes.size() - 1) {
+						cSelectedRecipe = 0;
+					}
+				}
+				if (Keyboard.isKeyPressed(Controls.INTERACT)) {
+					CraftingRecipe r = CraftingManager.recipes.get(cSelectedRecipe);
+					boolean hasItems = true;
+					for (ItemStack s : r.itemsInput) {
+						hasItems = player.hasItem(s.item, s.count);
+					}
+					if (hasItems) {
+						for (ItemStack s : r.itemsInput) {
+							player.takeItem(s.item, s.count);
+						}
+						for (ItemStack s : r.itemsOutput) {
+							player.giveItem(s.item, s.count);
+						}
+					}
+				}
 			} else {
 				for (Tile[] ta : player.world.tiles) {
 					for (Tile t : ta) {
@@ -187,7 +221,14 @@ public class Game extends Menu implements Serializable {
 						player.heldItemStack().item.onUse(player);
 					}
 				}
+				if (Keyboard.isKeyPressed(Controls.INTERACT_SECONDARY)) {
+					if (player.heldItemStack() != null) {
+						player.heldItemStack().item.onSecondaryUse(player);
+					}
+				}
+				hotbarControls();
 			}
+			// does regardless
 			if (Keyboard.isKeyPressed(Controls.ZOOM_CLOSER)) {
 				if (player.zoom > 2)
 					player.zoom -= 1f;
@@ -198,26 +239,32 @@ public class Game extends Menu implements Serializable {
 			}
 			if (Keyboard.isKeyPressed(Controls.DEBUG_TOGGLE)) {
 				debug = !debug;
+				player.takeItem(Items.STONE, 10);
 			}
 			if (Keyboard.isKeyDown(Controls.SPRINT) && player.walking) {
 				player.run = true;
 			}
-			if (Keyboard.isKeyPressed(Controls.OEPN_INVENTORY)) {
-				invOpened = !invOpened;
-				Sounds.BUTTON_SELECT.play();
-			}
 			if (!player.walking) {
 				player.run = false;
 			}
-			hotbarControls();
 			Particles.tick(player);
 
 		}
 		if (Keyboard.isKeyPressed(Controls.PAUSE)) {
 			paused = !paused;
-			IO.write("./save" + slotNumber, (Object) this);
-			player.giveItem(Items.carrot, 1);
+			IO.write("./save" + saveSlotNumber, (Object) this);
+			player.giveItem(Items.CARROT, 1);
 		}
+		if (Keyboard.isKeyPressed(Controls.OEPN_INVENTORY)) {
+			invOpened = !invOpened;
+			Sounds.BUTTON_SELECT.play();
+		}
+		if (Keyboard.isKeyPressed(Controls.CRAFT)) {
+			crafting = !crafting;
+			Sounds.BUTTON_SELECT.play();
+		}
+		Keyboard.isKeyPressed(Controls.MOVE_UP);
+		Keyboard.isKeyPressed(Controls.MOVE_DOWN);
 	}
 
 	public void draw() {
@@ -246,6 +293,8 @@ public class Game extends Menu implements Serializable {
 		int x2 = 0;
 		int y2 = 0;
 
+		// Draw tiles and layer 0 obstacles.
+
 		for (int x = -1; x < tilesAcross; x++) {
 			for (int y = -1; y < tilesUp; y++) {
 				int tileX = (offsetX + x);
@@ -265,7 +314,7 @@ public class Game extends Menu implements Serializable {
 					}
 					if (player.world.obstacles[tileX][tileZ] == null) {
 						Tile t = player.world.tiles[tileX][tileZ];
-						t.render(new Vertex(tileX, tileZ), (int) (rX + x * tWidth), (int) (rY + y * tWidth),
+						t.render(player, new Vertex(tileX, tileZ), (int) (rX + x * tWidth), (int) (rY + y * tWidth),
 								(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), tWidth);
 //						Renderer.drawTexture((int) (rX + x * tWidth), (int) (rY + y * tWidth),
 //								(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), texture);
@@ -275,9 +324,9 @@ public class Game extends Menu implements Serializable {
 									new Color(1, tileX % 2, tileZ % 2));
 						}
 					} else {
-						TileObstacle t = player.world.obstacles[tileX][tileZ];
+						Tile t = player.world.obstacles[tileX][tileZ];
 						if (t.layer == 0) {
-							t.render(new Vertex(tileX, tileZ), (int) (rX + x * tWidth), (int) (rY + y * tWidth),
+							t.render(player,new Vertex(tileX, tileZ), (int) (rX + x * tWidth), (int) (rY + y * tWidth),
 									(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), tWidth);
 							if (debug) {
 								Renderer.drawString((int) rX + x * tWidth, (int) rY + y * tWidth,
@@ -299,14 +348,284 @@ public class Game extends Menu implements Serializable {
 
 		Particles.render(rX, rY, player, tWidth);
 
+		// Player rendering positions
 		int pRenderX = (Main.WINDOW_WIDTH - tWidth) / 2;
 		int pRenderY = (int) ((Main.WINDOW_HEIGHT - tWidth * 1.625) / 2);
 
 		int pRenderX2 = pRenderX + tWidth;
 		int pRenderY2 = (int) (pRenderY + tWidth * 1.62500);
-
+		renderPlayer(pRenderX,pRenderY,pRenderX2,pRenderY2);
+		// Selected tile
 		Renderer.drawRect(x1, y1, x2, y2, 1, 1, 1, (float) (Math.abs(Math.sin(Main.TICKS / 30f)) / 2 + 0.3f));
 
+		// Draw player
+
+		
+
+		// show the player's position
+		if (debug) {
+			String t = String.format("(%5.2f,%5.2f)", player.xPos, player.zPos);
+
+			Renderer.drawString((int) ((0 + t.length() * 20) / 2), Main.WINDOW_HEIGHT - 100, 20, t,
+					new Color(0f, 0f, 1f));
+		}
+
+		// Draw tiles at layer 1
+
+		for (int x = -1; x < tilesAcross; x++) {
+			for (int y = -1; y < tilesUp; y++) {
+				int tileX = (offsetX + x);
+				int tileZ = (offsetY + y);
+
+				if (tileX < 0 || tileZ < 0 || tileX >= player.world.tiles.length
+						|| tileZ >= player.world.tiles[0].length) {
+
+				} else {
+					if (player.world.obstacles[tileX][tileZ] != null) {
+						Tile t = player.world.obstacles[tileX][tileZ];
+
+						if (t.layer == 1) {
+							t.render(player, new Vertex(tileX, tileZ), (int) (rX + x * tWidth), (int) (rY + y * tWidth),
+									(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), tWidth);
+							Vertex pos = player.getFacingPosition();
+							if (pos.x == tileX && pos.z == tileZ) {
+								Renderer.drawRect((int) (rX + x * tWidth), (int) (rY + y * tWidth),
+										(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), 1, 1, 1,
+										(float) (Math.abs(Math.sin(Main.TICKS / 30f)) / 2 + 0.3f));
+							}
+							if (debug) {
+								Renderer.drawString((int) rX + x * tWidth, (int) rY + y * tWidth,
+										tWidth / (tileX + "," + tileZ).length(), tileX + "," + tileZ,
+										new Color(1, tileX % 2, tileZ % 2));
+							}
+						}
+					}
+				}
+				if (debug) {
+					if (tileX == Math.round(player.xPos) && tileZ == Math.round(player.zPos)) {
+						Renderer.drawRect((int) (rX + x * tWidth), (int) (rY + y * tWidth),
+								(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), 0, 0, 1f, 0.3f);
+					}
+				}
+			}
+		}
+
+		// Draw health bar
+
+		int h = player.health;
+		int currX = 0;
+		int hSize = Main.WINDOW_WIDTH / 2 / 11;
+		int currY = Main.WINDOW_HEIGHT - hSize;
+		for (int i = 0; i < 10; i++) {
+			if (h > 1) {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.HEART_FULL);
+			} else if (h == 1) {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.HEART_HALF);
+			} else {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.HEART_EMPTY);
+			}
+			h -= 2;
+			currX += hSize;
+		}
+
+		// Draw hunger bar
+
+		currX = Main.WINDOW_WIDTH - hSize * 10;
+		h = player.hunger;
+		for (int i = 0; i < 10; i++) {
+			if (h > 1) {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.CARROT_FULL);
+			} else if (h == 1) {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.CARROT_HALF);
+			} else {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.CARROT_EMPTY);
+			}
+			h -= 2;
+			currX += hSize;
+		}
+
+		// Draw thirst bar
+
+		currY -= hSize;
+		currX = 0;
+		h = player.thirst;
+		for (int i = 0; i < 10; i++) {
+			if (h > 1) {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.WATER_FULL);
+			} else if (h == 1) {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.WATER_HALF);
+			} else {
+				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.WATER_EMPTY);
+			}
+			h -= 2;
+			currX += hSize;
+		}
+
+		int hbWidth = 64;
+		currY = hbWidth + 10;
+		currX = Main.WINDOW_WIDTH / 2 - ((hbWidth + 2) * 10 / 2);
+
+		// draw secondary hotbar slots
+
+		for (int i = 3; i < 13; i++) {
+			Renderer.drawTexture(currX, currY, currX + hbWidth, currY + hbWidth,
+					player.selectedSlot == i ? Textures.HOTBAR_SLOT_SELECTED : Textures.HOTBAR_SLOT_NORMAL);
+			if (player.hotbar[i] != null) {
+				Renderer.drawTexture(currX + 4, currY + 4, currX + hbWidth - 4, currY + hbWidth - 4,
+						player.hotbar[i].item.texture);
+				Renderer.drawString(currX + 7, currY + 7, 15, Integer.toString(player.hotbar[i].count));
+
+			}
+			currX += hbWidth + 2;
+		}
+		currY = hbWidth + 6;
+		hbWidth = 72;
+		currX = Main.WINDOW_WIDTH / 2 - ((hbWidth + 2) * 3 / 2);
+		currY -= hbWidth - 2;
+
+		// draw primary hotbar slots
+
+		for (int i = 0; i < 3; i++) {
+			Renderer.drawTexture(currX, currY, currX + hbWidth, currY + hbWidth,
+					player.selectedSlot == i ? Textures.HOTBAR_SLOT_SELECTED : Textures.HOTBAR_SLOT_NORMAL);
+			if (player.hotbar[i] != null) {
+				Renderer.drawTexture(currX + 4, currY + 4, currX + hbWidth - 4, currY + hbWidth - 4,
+						player.hotbar[i].item.texture);
+				Renderer.drawString(currX + 9, currY + 9, 18, Integer.toString(player.hotbar[i].count));
+			}
+			currX += hbWidth + 2;
+		}
+
+		// If the player is holding an item, display that item's name
+
+		if (player.heldItemStack() != null) {
+			String txt = player.heldItemStack().item.getDisplayName();
+			int fSize = 30;
+
+			int textLengthPx = txt.toCharArray().length * fSize;
+
+			int x = (Main.WINDOW_WIDTH - textLengthPx) / 2;
+
+			Renderer.drawString(x, 128 + fSize, fSize, txt);
+		}
+
+		// Runs when the player is crafting
+
+		if (crafting) {
+			glDisable(GL_TEXTURE_2D);
+			glLoadIdentity();
+
+			glBegin(GL_QUADS);
+			glColor4f(0, 0, 0, 0.1f);
+			glVertex2i(0, Main.WINDOW_HEIGHT);
+
+			glVertex2i(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
+
+			glVertex2i(Main.WINDOW_WIDTH, 0);
+
+			glVertex2i(0, 0);
+
+			glEnd();
+
+			int fSize = 20;
+			int cY = Main.WINDOW_HEIGHT - fSize * 2 - 70 - 40;
+			int cX = 100;
+
+			Renderer.drawRect(50, Main.WINDOW_HEIGHT - fSize - 70, Main.WINDOW_WIDTH - 50, fSize + 120,
+					new Color(0f, 0f, 0f));
+
+			for (int i = 0; i < CraftingManager.recipes.size(); i++) {
+				cX = 100;
+				CraftingRecipe recipe = CraftingManager.recipes.get(i);
+				for (int j = 0; j < recipe.itemsOutput.size(); j++) {
+					ItemStack s = recipe.itemsOutput.get(j);
+					String str = s.toString();
+					if (j + 1 < recipe.itemsOutput.size()) {
+						str += ",";
+					}
+					Renderer.drawString(cX, cY, fSize, str,
+							i == cSelectedRecipe ? new Color(1f, 1f, 0f) : new Color(1f, 1f, 1f));
+					cX += str.length() * fSize;
+				}
+				cX = 100;
+				if (i == cSelectedRecipe) {
+					for (int j = 0; j < recipe.itemsInput.size(); j++) {
+						ItemStack s = recipe.itemsInput.get(j);
+						String str = s.toString();
+						if (j + 1 < recipe.itemsInput.size()) {
+							str += ",";
+						}
+						Renderer.drawString(cX, fSize + 136, fSize, str.toString(),
+								player.hasItem(s.item, s.count) ? new Color(0.2f, 0.8f, 0.2f)
+										: new Color(8f, 0.2f, 0.2f));
+						cX += str.length() * fSize;
+					}
+				}
+				cY -= fSize;
+			}
+		}
+
+		// Runs when the player's inventory is open
+
+		if (invOpened) {
+			glDisable(GL_TEXTURE_2D);
+			glLoadIdentity();
+
+			glBegin(GL_QUADS);
+			glColor4f(0, 0, 0, 0.1f);
+			glVertex2i(0, Main.WINDOW_HEIGHT);
+
+			glVertex2i(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
+
+			glVertex2i(Main.WINDOW_WIDTH, 0);
+
+			glVertex2i(0, 0);
+
+			glEnd();
+
+			int fSize = 20;
+			int cY = Main.WINDOW_HEIGHT - fSize * 2 - 70 - 40;
+
+			Renderer.drawRect(50, Main.WINDOW_HEIGHT - fSize - 70, Main.WINDOW_WIDTH - 50, fSize + 120,
+					new Color(0, 0, 0));
+			if (player.inventory.size() == 0) {
+				Renderer.drawString(100, cY, fSize, "Inventory  Empty", new Color(1f, 1f, 1f));
+			}
+			for (int i = 0; i < player.inventory.size(); i++) {
+				ItemStack s = player.inventory.get(i);
+
+				Renderer.drawString(100, cY, fSize, s.toString(),
+						i == iSelectedNumber ? new Color(1f, 1f, 0f) : new Color(1f, 1f, 1f));
+				cY -= fSize;
+			}
+		}
+
+		// Runs when the game is paused
+
+		if (paused) {
+			glDisable(GL_TEXTURE_2D);
+			glLoadIdentity();
+
+			glBegin(GL_QUADS);
+			glColor4f(0, 0, 0, 0.3f);
+			glVertex2i(0, Main.WINDOW_HEIGHT);
+
+			glVertex2i(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
+
+			glVertex2i(Main.WINDOW_WIDTH, 0);
+
+			glVertex2i(0, 0);
+
+			glEnd();
+
+			int textLengthPx = "Game Paused".toCharArray().length * 48;
+
+			int x = (Main.WINDOW_WIDTH - textLengthPx) / 2;
+
+			Renderer.drawString(x, Main.WINDOW_HEIGHT - 64, 48, "Game Paused");
+		}
+	}
+	public void renderPlayer(int pRenderX, int pRenderY, int pRenderX2, int pRenderY2) {
 		switch (player.facing) {
 
 		case SOUTH:
@@ -496,190 +815,10 @@ public class Game extends Menu implements Serializable {
 		default:
 			break;
 		}
-		if (debug) {
-			String t = String.format("(%5.2f,%5.2f)", player.xPos, player.zPos);
-
-			Renderer.drawString((int) ((0 + t.length() * 20) / 2), Main.WINDOW_HEIGHT - 100, 20, t,
-					new Color(0f, 0f, 1f));
-		}
-
-		for (int x = -1; x < tilesAcross; x++) {
-			for (int y = -1; y < tilesUp; y++) {
-				int tileX = (offsetX + x);
-				int tileZ = (offsetY + y);
-
-				if (tileX < 0 || tileZ < 0 || tileX >= player.world.tiles.length
-						|| tileZ >= player.world.tiles[0].length) {
-
-				} else {
-					if (player.world.obstacles[tileX][tileZ] != null) {
-						TileObstacle t = player.world.obstacles[tileX][tileZ];
-
-						if (t.layer == 1) {
-							t.render(new Vertex(tileX, tileZ), (int) (rX + x * tWidth), (int) (rY + y * tWidth),
-									(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), tWidth);
-							Vertex pos = player.getFacingPosition();
-							if (pos.x == tileX && pos.z == tileZ) {
-								Renderer.drawRect((int) (rX + x * tWidth), (int) (rY + y * tWidth),
-										(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), 1, 1, 1,
-										(float) (Math.abs(Math.sin(Main.TICKS / 30f)) / 2 + 0.3f));
-							}
-							if (debug) {
-								Renderer.drawString((int) rX + x * tWidth, (int) rY + y * tWidth,
-										tWidth / (tileX + "," + tileZ).length(), tileX + "," + tileZ,
-										new Color(1, tileX % 2, tileZ % 2));
-							}
-						}
-					}
-				}
-				if (debug) {
-					if (tileX == Math.round(player.xPos) && tileZ == Math.round(player.zPos)) {
-						Renderer.drawRect((int) (rX + x * tWidth), (int) (rY + y * tWidth),
-								(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), 0, 0, 1f, 0.3f);
-					}
-				}
-			}
-		}
-
-		int h = player.health;
-		int currX = 0;
-		int hSize = Main.WINDOW_WIDTH / 2 / 11;
-		int currY = Main.WINDOW_HEIGHT - hSize;
-		for (int i = 0; i < 10; i++) {
-			if (h > 1) {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.HEART_FULL);
-			} else if (h == 1) {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.HEART_HALF);
-			} else {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.HEART_EMPTY);
-			}
-			h -= 2;
-			currX += hSize;
-		}
-		currX = Main.WINDOW_WIDTH - hSize * 10;
-		h = player.hunger;
-		for (int i = 0; i < 10; i++) {
-			if (h > 1) {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.CARROT_FULL);
-			} else if (h == 1) {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.CARROT_HALF);
-			} else {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.CARROT_EMPTY);
-			}
-			h -= 2;
-			currX += hSize;
-		}
-		currY -= hSize;
-		currX = 0;
-		h = player.thirst;
-		for (int i = 0; i < 10; i++) {
-			if (h > 1) {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.WATER_FULL);
-			} else if (h == 1) {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.WATER_HALF);
-			} else {
-				Renderer.drawTexture(currX, currY, currX + hSize, currY + hSize, Textures.WATER_EMPTY);
-			}
-			h -= 2;
-			currX += hSize;
-		}
-
-		int hbWidth = 64;
-		currY = hbWidth + 10;
-		currX = Main.WINDOW_WIDTH / 2 - ((hbWidth + 2) * 10 / 2);
-
-		for (int i = 3; i < 13; i++) {
-			Renderer.drawTexture(currX, currY, currX + hbWidth, currY + hbWidth,
-					player.selectedSlot == i ? Textures.HOTBAR_SLOT_SELECTED : Textures.HOTBAR_SLOT_NORMAL);
-			if (player.hotbar[i] != null) {
-				Renderer.drawTexture(currX + 4, currY + 4, currX + hbWidth - 4, currY + hbWidth - 4,
-						player.hotbar[i].item.texture);
-				Renderer.drawString(currX + 7, currY + 7, 15, Integer.toString(player.hotbar[i].count));
-
-			}
-			currX += hbWidth + 2;
-		}
-		currY = hbWidth + 6;
-		hbWidth = 72;
-		currX = Main.WINDOW_WIDTH / 2 - ((hbWidth + 2) * 3 / 2);
-		currY -= hbWidth - 2;
-
-		for (int i = 0; i < 3; i++) {
-			Renderer.drawTexture(currX, currY, currX + hbWidth, currY + hbWidth,
-					player.selectedSlot == i ? Textures.HOTBAR_SLOT_SELECTED : Textures.HOTBAR_SLOT_NORMAL);
-			if (player.hotbar[i] != null) {
-				Renderer.drawTexture(currX + 4, currY + 4, currX + hbWidth - 4, currY + hbWidth - 4,
-						player.hotbar[i].item.texture);
-				Renderer.drawString(currX + 9, currY + 9, 18, Integer.toString(player.hotbar[i].count));
-			}
-			currX += hbWidth + 2;
-		}
-		if (player.heldItemStack() != null) {
-			String txt = player.heldItemStack().item.getDisplayName();
-			int fSize = 30;
-
-			int textLengthPx = txt.toCharArray().length * fSize;
-
-			int x = (Main.WINDOW_WIDTH - textLengthPx) / 2;
-
-			Renderer.drawString(x, 128+fSize, fSize, txt);
-		}
-
-		if (invOpened) {
-			glDisable(GL_TEXTURE_2D);
-			glLoadIdentity();
-
-			glBegin(GL_QUADS);
-			glColor4f(0, 0, 0, 0.1f);
-			glVertex2i(0, Main.WINDOW_HEIGHT);
-
-			glVertex2i(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
-
-			glVertex2i(Main.WINDOW_WIDTH, 0);
-
-			glVertex2i(0, 0);
-
-			glEnd();
-
-			int fSize = 20;
-			int cY = Main.WINDOW_HEIGHT - fSize * 2 - 70 - 40;
-
-			Renderer.drawRect(50, Main.WINDOW_HEIGHT - fSize - 70, Main.WINDOW_WIDTH - 50, fSize + 120,
-					new Color(0, 0, 0));
-
-			for (int i = 0; i < player.inventory.size(); i++) {
-				ItemStack s = player.inventory.get(i);
-
-				Renderer.drawString(100, cY, fSize, s.item.getDisplayName() + " (" + s.count + ")",
-						i == iSelectedNumber ? new Color(1f, 1f, 0f) : new Color(1f, 1f, 1f));
-				cY -= fSize;
-			}
-		}
-
-		if (paused) {
-			glDisable(GL_TEXTURE_2D);
-			glLoadIdentity();
-
-			glBegin(GL_QUADS);
-			glColor4f(0, 0, 0, 0.3f);
-			glVertex2i(0, Main.WINDOW_HEIGHT);
-
-			glVertex2i(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
-
-			glVertex2i(Main.WINDOW_WIDTH, 0);
-
-			glVertex2i(0, 0);
-
-			glEnd();
-
-			int textLengthPx = "Game Paused".toCharArray().length * 48;
-
-			int x = (Main.WINDOW_WIDTH - textLengthPx) / 2;
-
-			Renderer.drawString(x, Main.WINDOW_HEIGHT - 64, 48, "Game Paused");
-		}
 	}
-
+	/**
+	 * For switching which slot is selected
+	 */
 	public void hotbarControls() {
 		if (Keyboard.isKeyDown(Controls.HOTBAR_SLOT_0)) {
 			player.selectedSlot = 0;

@@ -8,4 +8,12 @@ public class ItemStack {
 		this.item = item;
 		this.count = count;
 	}
+	public ItemStack(Item item) {
+		this.item = item;
+		this.count = 1;
+	}
+	@Override
+	public String toString() {
+		return item.getDisplayName() + "x" + count;
+	}
 }

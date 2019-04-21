@@ -1,10 +1,10 @@
 package com.cool.menu;
 
+import com.cool.Controls;
 import com.cool.Game;
 import com.cool.Main;
 import com.cool.Sounds;
 import com.cool.Textures;
-import com.cool.lib.Controls;
 import com.cool.lib.IO;
 import com.cool.lib.Keyboard;
 import com.cool.lib.Renderer;
@@ -46,7 +46,7 @@ public class SaveMenu extends Menu {
 			case 0: 
 				if(save1 == null) {
 					currentMenu = MenuTypes.CHARACTER_CUSTOMIZE;
-					Main.game.slotNumber = 1;
+					Main.game.saveSlotNumber = 1;
 				} else {
 					Main.game = save1;
 					currentMenu = MenuTypes.GAME;

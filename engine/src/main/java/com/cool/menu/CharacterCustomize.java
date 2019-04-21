@@ -2,11 +2,11 @@ package com.cool.menu;
 
 import java.util.Random;
 
+import com.cool.Controls;
 import com.cool.Main;
 import com.cool.Sounds;
 import com.cool.Textures;
 import com.cool.lib.Color;
-import com.cool.lib.Controls;
 import com.cool.lib.Keyboard;
 import com.cool.lib.Renderer;
 

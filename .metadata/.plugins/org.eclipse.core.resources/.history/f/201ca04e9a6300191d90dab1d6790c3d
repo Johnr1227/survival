@@ -1,0 +1,16 @@
+package com.cool.tile;
+
+import com.cool.lib.Texture;
+
+public class TileObstacleAndFloor extends Tile {
+	
+	public TileObstacleAndFloor(Texture texture, String name, String displayName, int layer) {
+		this.texture = texture;
+		this.tileName = name;
+		this.displayName = displayName;
+		this.layer = layer;
+	}
+	public TileObstacleAndFloor() {
+		
+	}
+}
