@@ -17,6 +17,8 @@ import com.cool.menu.Menu;
 import com.cool.menu.SaveMenu;
 
 import com.cool.crafting.CraftingManager;
+import com.cool.entity.Entity;
+import com.cool.entity.EntityManager;
 
 public class Main {
 
@@ -109,6 +111,7 @@ public class Main {
 		worldMenu.init();
 		characterCustomize = new CharacterCustomize();
 		characterCustomize.init();
+		
 		while (!glfwWindowShouldClose(window)) {
 			glfwPollEvents();
 			if (windowFocused) {

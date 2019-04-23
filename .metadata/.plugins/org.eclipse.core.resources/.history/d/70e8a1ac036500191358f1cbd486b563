@@ -1,0 +1,5 @@
+package com.cool.entity;
+
+public class Entity {
+
+}

@@ -1,0 +1,17 @@
+package com.cool.entity;
+
+import com.cool.lib.Texture;
+import com.cool.world.World;
+
+public class Entity {
+	public Texture texMap;
+	public double xPos;
+	public double zPos;
+	
+	public World world;
+	
+	public Entity() {
+		
+	}
+	
+}

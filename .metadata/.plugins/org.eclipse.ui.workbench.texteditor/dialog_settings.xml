@@ -2,12 +2,15 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="isKeyDown" key="selection"/>
+		<item value="EntityManager" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="EntityManager"/>
+			<item value="render"/>
+			<item value="instanceof"/>
 			<item value="isKeyDown"/>
 			<item value="player.selectedSlot"/>
 			<item value="moveySlot"/>
@@ -20,9 +23,6 @@
 			<item value="carrot"/>
 			<item value="INVENTORY"/>
 			<item value="INVENTOTY"/>
-			<item value="System"/>
-			<item value="a"/>
-			<item value="seed"/>
 		</list>
 		<list key="replacehistory">
 			<item value="isKeyPressed"/>

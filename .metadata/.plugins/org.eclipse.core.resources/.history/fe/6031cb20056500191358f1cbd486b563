@@ -1,0 +1,18 @@
+package com.cool.entity;
+
+import java.util.ArrayList;
+
+public class EntityManager {
+	public static ArrayList<Entity> entities = new ArrayList<>();
+	
+	public static void tick() {
+		for(Entity e : entities) {
+			e.tick();
+		}
+	}
+	public static void render() {
+		for(Entity e : entities) {
+			e.render();
+		}
+	}
+}

@@ -1,0 +1,20 @@
+package com.cool.entity;
+
+import java.util.ArrayList;
+
+import com.cool.player.Player;
+
+public class EntityManager {
+	public static ArrayList<Entity> entities = new ArrayList<>();
+	
+	public static void tick() {
+		for(Entity e : entities) {
+			e.tick();
+		}
+	}
+	public static void render(Player p, double rX, double rY, int tWidth) {
+		for(Entity e : entities) {
+			e.render(p, rX, rY, tWidth);
+		}
+	}
+}

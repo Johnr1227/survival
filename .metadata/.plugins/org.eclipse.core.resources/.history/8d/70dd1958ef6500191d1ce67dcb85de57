@@ -1,0 +1,79 @@
+package com.cool.entity;
+
+import com.cool.Main;
+import com.cool.lib.Direction;
+import com.cool.lib.TextureMap;
+import com.cool.player.Player;
+import com.cool.world.World;
+
+public class EntityMob extends Entity {
+
+	public TextureMap map;
+
+	public Direction facing;
+	public boolean moving = false;
+	public int movingTicks = 0;
+	
+	public int walkFootDoThingRate = 30;
+	
+	public float width = 1;
+	public float depth = 1;
+
+	public EntityMob(double xPos, double zPos, World world, Direction facing) {
+		super(xPos, zPos, world);
+		this.facing = facing;
+	}
+
+	@Override
+	public void tick(Player p) {
+		super.tick(p);
+		if (moving)
+			movingTicks++;
+		else
+			movingTicks = 0;
+	}
+
+	@Override
+	public void render(Player p, int tWidth) {
+		int t = 0;
+		switch (facing) {
+		case NORTH:
+			if(moving) {
+				int x = Main.TICKS%walkFootDoThingRate;
+				t = x > walkFootDoThingRate/2 ? 4 : 8;
+			} else {
+				t = 0;
+			}
+			break;
+		case SOUTH:
+			if(moving) {
+				int x = Main.TICKS%walkFootDoThingRate;
+				t = x > walkFootDoThingRate/2 ? 6 : 10;
+			} else {
+				t = 2;
+			}
+			break;
+		case EAST:
+			if(moving) {
+				int x = Main.TICKS%walkFootDoThingRate;
+				t = x > walkFootDoThingRate/2 ? 7 : 11;
+			} else {
+				t = 3;
+			}
+			break;
+		case WEST:
+			if(moving) {
+				int x = Main.TICKS%walkFootDoThingRate;
+				t = x > walkFootDoThingRate/2 ? 5 : 9;
+			} else {
+				t = 1;
+			}
+			break;
+		}
+		t = 0;
+		map.draw(t, (int) (Main.WINDOW_WIDTH / 2 + (width + (xPos - p.xPos)) * tWidth),
+				(int) (Main.WINDOW_HEIGHT / 2 + (depth + (zPos - p.zPos)) * tWidth),
+				(int) (Main.WINDOW_WIDTH / 2 + (xPos - p.xPos) * tWidth),
+				(int) (Main.WINDOW_HEIGHT / 2 + (zPos - p.zPos) * tWidth));
+	}
+}

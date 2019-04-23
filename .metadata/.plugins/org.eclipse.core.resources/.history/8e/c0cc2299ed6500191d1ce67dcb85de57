@@ -1,0 +1,14 @@
+package com.cool.entities;
+
+import com.cool.entity.EntityMob;
+import com.cool.lib.Direction;
+import com.cool.world.World;
+
+public class EntityPig extends EntityMob{
+
+	public EntityPig(double xPos, double zPos, World world, Direction facing) {
+		super(xPos, zPos, world, facing);
+		
+	}
+
+}

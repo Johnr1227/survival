@@ -1,0 +1,12 @@
+package com.cool.entity.behaviors;
+
+import com.cool.Main;
+import com.cool.entity.Entity;
+import com.cool.entity.EntityBehavior;
+
+public class EntityBehaviorShakyWakey extends EntityBehavior{
+	@Override
+	public void tick(Entity e) {
+		e.xPos += Math.sin(Main.TICKS/100f)*3;
+	}
+}

@@ -1,0 +1,20 @@
+package com.cool.entity.behaviors;
+
+import java.util.Random;
+
+import com.cool.entity.Entity;
+import com.cool.entity.EntityBehavior;
+import com.cool.entity.EntityMob;
+
+public class EntityBehaviorWander extends EntityBehavior{
+	public Random random = new Random();
+	
+	@Override
+	public void tick(Entity e) {
+		EntityMob m = (EntityMob)e;
+		if(m.moving) {
+			m.xPos += m.facing.getDirection().x*0.05;
+			m.zPos += m.facing.getDirection().z*0.05;
+		}
+	}
+}

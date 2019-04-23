@@ -1,12 +1,12 @@
 package com.cool.tiles;
 
+import com.cool.SoundType;
 import com.cool.Textures;
 import com.cool.item.Items;
 import com.cool.lib.Color;
 import com.cool.lib.Renderer;
 import com.cool.lib.Vertex;
 import com.cool.player.Player;
-import com.cool.tile.SoundType;
 import com.cool.tile.TileObstacleAndFloor;
 
 public class TileWoodPlanks extends TileObstacleAndFloor {

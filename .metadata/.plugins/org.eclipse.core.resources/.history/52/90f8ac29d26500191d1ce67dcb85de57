@@ -1,0 +1,23 @@
+package com.cool.entity;
+
+import com.cool.Main;
+import com.cool.lib.TextureMap;
+import com.cool.player.Player;
+import com.cool.world.World;
+
+public class EntityMob extends Entity {
+	
+	public TextureMap map;
+	
+	public EntityMob(double xPos, double zPos, World world) {
+		super(xPos, zPos, world);
+	}
+	
+	@Override
+	public void render(Player p, int tWidth) {
+		map.draw(Main.TICKS%2, (int) (Main.WINDOW_WIDTH / 2 + (1 + (xPos - p.xPos)) * tWidth),
+				(int) (Main.WINDOW_WIDTH / 2 + (1 + (zPos - p.zPos)) * tWidth),
+				(int) (Main.WINDOW_HEIGHT / 2 + (xPos - p.xPos) * tWidth),
+				(int) (Main.WINDOW_HEIGHT / 2 + (zPos - p.zPos) * tWidth));
+	}
+}

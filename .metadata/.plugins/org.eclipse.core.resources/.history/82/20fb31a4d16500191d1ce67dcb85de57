@@ -1,0 +1,11 @@
+package com.cool.entity;
+
+import com.cool.world.World;
+
+public class EntityMob extends Entity {
+
+	public EntityMob(double xPos, double zPos, World world) {
+		super(xPos, zPos, world);
+	}
+
+}

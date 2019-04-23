@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.apache.commons.io.IOUtils;
 
 import com.cool.lib.Texture;
+import com.cool.lib.TextureMap;
 
 public class Textures {
 	
@@ -186,6 +187,14 @@ public class Textures {
 	public static Texture WOOD_PLANKS;
 	public static Texture WORKBENCH;
 	
+	// Entities
+	
+	public static Texture TEST;
+	public static TextureMap TEST_MAP;
+	
+	public static Texture PIG;
+	public static TextureMap PIG_MAP;
+	
 	public static void setTextures() throws IOException {
 		BUTTON_NORMAL = Texture.loadTexture(unpackResource("ui/button_normal.png"));
 		BUTTON_SELECTED = Texture.loadTexture(unpackResource("ui/button_selected.png"));
@@ -337,6 +346,15 @@ public class Textures {
 		TREE = Texture.loadTexture(unpackResource("tiles/tree.png"));
 		WOOD_PLANKS = Texture.loadTexture(unpackResource("tiles/wood_planks.png"));
 		WORKBENCH = Texture.loadTexture(unpackResource("tiles/workbench.png"));
+		
+		// Entities
+		TEST = Texture.loadTexture(unpackResource("entity/test.png"));
+		TEST_MAP = new TextureMap(TEST, 64, 16);
+		TEST_MAP.generateThings(0, 0, 16, 16, 4);
+		
+		PIG = Texture.loadTexture(unpackResource("entity/pig.png"));
+		PIG_MAP = new TextureMap(PIG, 104, 78);
+		PIG_MAP.generateThings(0, 0, 26, 26, 12);
 	}
 	
 	public static String unpackResource(String path) throws IOException {

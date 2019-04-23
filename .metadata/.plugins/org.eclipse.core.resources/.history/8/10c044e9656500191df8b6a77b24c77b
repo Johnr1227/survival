@@ -1,0 +1,40 @@
+package com.cool.entity;
+
+import java.util.ArrayList;
+
+import com.cool.Textures;
+import com.cool.entity.behaviors.EntityBehaviorShakyWakey;
+import com.cool.lib.Renderer;
+import com.cool.lib.Vertex;
+import com.cool.player.Player;
+import com.cool.world.World;
+
+public class Entity {
+	public double xPos;
+	public double zPos;
+
+	public World world;
+
+	public ArrayList<EntityBehavior> behaviors = new ArrayList<>();
+
+	public Entity(double xPos, double zPos, World world) {
+		this.xPos = xPos;
+		this.zPos = zPos;
+		this.world = world;
+		behaviors.add(new EntityBehaviorShakyWakey());
+	}
+
+	public void tick(Player p) {
+		for (EntityBehavior b : behaviors) {
+			b.tick(this);
+		}
+	}
+
+	public void render(Player p, int tWidth) {
+		Renderer.drawTexture((int) ((1 + (xPos-p.xPos)) * tWidth), (int) ((1 + (zPos-p.zPos)) * tWidth),
+				(int) ((xPos-p.xPos) * tWidth), (int) ((zPos-p.zPos) * tWidth), Textures.LOG);
+	}
+	public int distanceTaxicab(Vertex pos) {
+		return pos.x - (int)xPos + pos.z - (int)zPos; 
+	}
+}

@@ -3,6 +3,7 @@ package com.cool.tiles;
 import java.util.Random;
 
 import com.cool.Main;
+import com.cool.SoundType;
 import com.cool.Textures;
 import com.cool.item.Items;
 import com.cool.lib.Renderer;
@@ -10,7 +11,6 @@ import com.cool.lib.Vertex;
 import com.cool.particle.Particles;
 import com.cool.particles.ParticleTile;
 import com.cool.player.Player;
-import com.cool.tile.SoundType;
 import com.cool.tile.TileObstacle;
 import com.cool.world.generation.SimplexNoise;
 

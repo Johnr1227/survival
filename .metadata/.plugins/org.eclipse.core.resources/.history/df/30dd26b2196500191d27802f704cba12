@@ -1,0 +1,5 @@
+package com.cool.entity.behaviors;
+
+public class EntityBehaviorShakyWakey {
+
+}

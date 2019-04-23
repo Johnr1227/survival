@@ -1,6 +1,7 @@
 package com.cool;
 
 import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
+
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.Serializable;
@@ -18,17 +19,18 @@ import com.cool.lib.Renderer;
 import com.cool.lib.Vertex;
 import com.cool.menu.Menu;
 import com.cool.particle.Particles;
-import com.cool.particles.ParticleTile;
 import com.cool.player.Player;
 import com.cool.tile.Tile;
 import com.cool.world.Worlds;
 
 import com.cool.crafting.CraftingManager;
 import com.cool.crafting.CraftingRecipe;
+import com.cool.entities.EntityPig;
+import com.cool.entity.EntityManager;
 
 public class Game extends Menu implements Serializable {
 
-	private static final long serialVersionUID = -4908274186970551379L;
+	private static final long serialVersionUID = 119225811232873L;
 
 	public long window;
 
@@ -45,6 +47,8 @@ public class Game extends Menu implements Serializable {
 
 	public int saveSlotNumber;
 
+	private int clickyTicky = 0;
+
 	public Game(long window) {
 		this.window = window;
 	}
@@ -59,6 +63,9 @@ public class Game extends Menu implements Serializable {
 
 	public void tick() {
 		if (!paused) {
+			if (Keyboard.isKeyPressed(Controls.SPRINT)) {
+				EntityManager.entities.add(new EntityPig(player.xPos, player.zPos, player.world, player.facing));
+			}
 			if (invOpened) {
 				if (Keyboard.isKeyPressed(Controls.MOVE_UP)) {
 					Sounds.BUTTON_SELECT.play();
@@ -165,6 +172,7 @@ public class Game extends Menu implements Serializable {
 				}
 				if (Keyboard.isKeyPressed(Controls.INTERACT)) {
 					CraftingRecipe r = CraftingManager.recipes.get(cSelectedRecipe);
+					clickyTicky = Main.TICKS;
 					boolean hasItems = true;
 					for (ItemStack s : r.itemsInput) {
 						hasItems = player.hasItem(s.item, s.count);
@@ -175,6 +183,25 @@ public class Game extends Menu implements Serializable {
 						}
 						for (ItemStack s : r.itemsOutput) {
 							player.giveItem(s.item, s.count);
+						}
+					}
+				}
+				if (Keyboard.isKeyDown(Controls.INTERACT)) {
+					if (Main.TICKS > clickyTicky + 30) {
+						if (Main.TICKS % 5 == 0) {
+							CraftingRecipe r = CraftingManager.recipes.get(cSelectedRecipe);
+							boolean hasItems = true;
+							for (ItemStack s : r.itemsInput) {
+								hasItems = player.hasItem(s.item, s.count);
+							}
+							if (hasItems) {
+								for (ItemStack s : r.itemsInput) {
+									player.takeItem(s.item, s.count);
+								}
+								for (ItemStack s : r.itemsOutput) {
+									player.giveItem(s.item, s.count);
+								}
+							}
 						}
 					}
 				}
@@ -211,7 +238,6 @@ public class Game extends Menu implements Serializable {
 				if (Keyboard.isKeyPressed(Controls.BREAK)) {
 					Vertex fPos = player.getFacingPosition();
 					if (player.world.obstacles[fPos.x][fPos.z] != null) {
-						Particles.spawn(new ParticleTile(player.getFacingObstacle(), 1), 30, fPos.x, 0, fPos.z);
 						player.getFacingObstacle().onBroken(player, fPos);
 					}
 					player.world.obstacles[fPos.x][fPos.z] = null;
@@ -248,7 +274,7 @@ public class Game extends Menu implements Serializable {
 				player.run = false;
 			}
 			Particles.tick(player);
-
+			EntityManager.tick(player);
 		}
 		if (Keyboard.isKeyPressed(Controls.PAUSE)) {
 			paused = !paused;
@@ -326,7 +352,7 @@ public class Game extends Menu implements Serializable {
 					} else {
 						Tile t = player.world.obstacles[tileX][tileZ];
 						if (t.layer == 0) {
-							t.render(player,new Vertex(tileX, tileZ), (int) (rX + x * tWidth), (int) (rY + y * tWidth),
+							t.render(player, new Vertex(tileX, tileZ), (int) (rX + x * tWidth), (int) (rY + y * tWidth),
 									(int) (rX + (1 + x) * tWidth), (int) (rY + (1 + y) * tWidth), tWidth);
 							if (debug) {
 								Renderer.drawString((int) rX + x * tWidth, (int) rY + y * tWidth,
@@ -354,21 +380,12 @@ public class Game extends Menu implements Serializable {
 
 		int pRenderX2 = pRenderX + tWidth;
 		int pRenderY2 = (int) (pRenderY + tWidth * 1.62500);
-		renderPlayer(pRenderX,pRenderY,pRenderX2,pRenderY2);
+		renderPlayer(pRenderX, pRenderY, pRenderX2, pRenderY2);
 		// Selected tile
 		Renderer.drawRect(x1, y1, x2, y2, 1, 1, 1, (float) (Math.abs(Math.sin(Main.TICKS / 30f)) / 2 + 0.3f));
 
-		// Draw player
-
-		
-
-		// show the player's position
-		if (debug) {
-			String t = String.format("(%5.2f,%5.2f)", player.xPos, player.zPos);
-
-			Renderer.drawString((int) ((0 + t.length() * 20) / 2), Main.WINDOW_HEIGHT - 100, 20, t,
-					new Color(0f, 0f, 1f));
-		}
+		// Render entities
+		EntityManager.render(player, tWidth);
 
 		// Draw tiles at layer 1
 
@@ -408,6 +425,13 @@ public class Game extends Menu implements Serializable {
 					}
 				}
 			}
+		}
+		// show the player's position
+		if (debug) {
+			String t = String.format("(%5.2f,%5.2f)", player.xPos, player.zPos);
+
+			Renderer.drawString((int) ((0 + t.length() * 20) / 2), Main.WINDOW_HEIGHT - 100, 20, t,
+					new Color(0f, 0f, 1f));
 		}
 
 		// Draw health bar
@@ -625,6 +649,7 @@ public class Game extends Menu implements Serializable {
 			Renderer.drawString(x, Main.WINDOW_HEIGHT - 64, 48, "Game Paused");
 		}
 	}
+
 	public void renderPlayer(int pRenderX, int pRenderY, int pRenderX2, int pRenderY2) {
 		switch (player.facing) {
 
@@ -816,6 +841,7 @@ public class Game extends Menu implements Serializable {
 			break;
 		}
 	}
+
 	/**
 	 * For switching which slot is selected
 	 */

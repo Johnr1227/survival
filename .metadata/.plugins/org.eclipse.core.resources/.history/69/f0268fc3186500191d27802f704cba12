@@ -1,0 +1,34 @@
+package com.cool.entity;
+
+import java.util.ArrayList;
+
+import com.cool.Textures;
+import com.cool.lib.Renderer;
+import com.cool.player.Player;
+import com.cool.world.World;
+
+public class Entity {
+	public double xPos;
+	public double zPos;
+	
+	public World world;
+	
+	public ArrayList<EntityBehavior> behaviors = new ArrayList<>();
+	
+	public Entity(double xPos, double zPos, World world) {
+		this.xPos = xPos;
+		this.zPos = zPos;
+		this.world  = world;
+	}
+	public void tick() {
+		for(EntityBehavior b : behaviors) {
+			b.tick(this);
+		}
+	}
+	public void render(Player p, double rX, double rY, int tWidth) {
+		System.out.println((int) (rX + (p.xPos-xPos) * tWidth) + "," + (int) (rY + (p.zPos-zPos) * tWidth) + "," +
+				(int) (rX + (1 + (p.xPos-xPos)) * tWidth) + "," + (int) (rY + (1 + (p.zPos-zPos)) * tWidth));
+		Renderer.drawTexture((int) (rX + (p.xPos-xPos) * tWidth), (int) (rY + (p.zPos-zPos) * tWidth),
+				(int) (rX + (1 + (p.xPos-xPos)) * tWidth), (int) (rY + (1 + (p.zPos-zPos)) * tWidth), Textures.LOG);
+	}
+}

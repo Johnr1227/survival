@@ -1,0 +1,24 @@
+package com.cool.entity;
+
+import java.util.ArrayList;
+
+import com.cool.world.World;
+
+public class Entity {
+	public double xPos;
+	public double zPos;
+	
+	public World world;
+	
+	public ArrayList<EntityBehavior> behaviors = new ArrayList<>();
+	
+	public Entity() {
+		
+	}
+	public void tick() {
+		
+	}
+	public void render() {
+		
+	}
+}

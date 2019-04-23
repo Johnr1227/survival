@@ -1,0 +1,79 @@
+package com.cool.entity;
+
+import com.cool.Main;
+import com.cool.Textures;
+import com.cool.entity.behaviors.EntityBehaviorWander;
+import com.cool.lib.Direction;
+import com.cool.lib.TextureMap;
+import com.cool.player.Player;
+import com.cool.world.World;
+
+public class EntityMob extends Entity {
+
+	public TextureMap map;
+
+	public Direction facing;
+	public boolean moving;
+	public int movingTicks = 0;
+	
+	public int walkFootDoThingRate = 10;
+
+	public EntityMob(double xPos, double zPos, World world, Direction facing) {
+		super(xPos, zPos, world);
+		this.map = Textures.PIG_MAP;
+		this.facing = facing;
+		behaviors.add(new EntityBehaviorWander());
+	}
+
+	@Override
+	public void tick(Player p) {
+		super.tick(p);
+		if (moving)
+			movingTicks++;
+		else
+			movingTicks = 0;
+	}
+
+	@Override
+	public void render(Player p, int tWidth) {
+		int t = 0;
+		switch (facing) {
+		case NORTH:
+			if(moving) {
+				int x = Main.TICKS%walkFootDoThingRate;
+				t = x > walkFootDoThingRate/2 ? 4 : 8;
+			} else {
+				t = 0;
+			}
+			break;
+		case SOUTH:
+			if(moving) {
+				int x = Main.TICKS%walkFootDoThingRate;
+				t = x > walkFootDoThingRate/2 ? 6 : 10;
+			} else {
+				t = 2;
+			}
+			break;
+		case EAST:
+			if(moving) {
+				int x = Main.TICKS%walkFootDoThingRate;
+				t = x > walkFootDoThingRate/2 ? 7 : 11;
+			} else {
+				t = 3;
+			}
+			break;
+		case WEST:
+			if(moving) {
+				int x = Main.TICKS%walkFootDoThingRate;
+				t = x > walkFootDoThingRate/2 ? 5 : 9;
+			} else {
+				t = 1;
+			}
+			break;
+		}
+		map.draw(t, (int) (Main.WINDOW_WIDTH / 2 + (1 + (xPos - p.xPos)) * tWidth),
+				(int) (Main.WINDOW_WIDTH / 2 + (1 + (zPos - p.zPos)) * tWidth),
+				(int) (Main.WINDOW_HEIGHT / 2 + (xPos - p.xPos) * tWidth),
+				(int) (Main.WINDOW_HEIGHT / 2 + (zPos - p.zPos) * tWidth));
+	}
+}

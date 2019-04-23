@@ -1,7 +1,7 @@
 package com.cool.tiles;
 
+import com.cool.SoundType;
 import com.cool.Textures;
-import com.cool.tile.SoundType;
 import com.cool.tile.Tile;
 
 public class TileGrass extends Tile {

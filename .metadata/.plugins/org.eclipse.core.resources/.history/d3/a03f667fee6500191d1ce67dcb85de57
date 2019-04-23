@@ -1,0 +1,22 @@
+package com.cool.entities;
+
+import com.cool.Textures;
+import com.cool.entity.EntityMob;
+import com.cool.entity.behaviors.EntityBehaviorWander;
+import com.cool.lib.Direction;
+import com.cool.player.Player;
+import com.cool.world.World;
+
+public class EntityPig extends EntityMob{
+
+	public EntityPig(double xPos, double zPos, World world, Direction facing) {
+		super(xPos, zPos, world, facing);
+		this.map = Textures.PIG_MAP;
+		behaviors.add(new EntityBehaviorWander());
+	}
+	@Override
+	public void render(Player p, int tWidth) {
+		super.render(p, (int)(tWidth*1.625f));
+	}
+
+}

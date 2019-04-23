@@ -11,7 +11,11 @@ import com.cool.audio.Audio.Sound;
 import com.cool.audio.Audio.SoundLength;
 
 public class Sounds {
+	/** UI Sounds */
 	public static Sound BUTTON_SELECT;
+	
+	/** Tile Sounds */
+	// Tile Step Sounds
 	
 	public static Sound DIRT_STEP_1;
 	public static Sound DIRT_STEP_2;
@@ -23,10 +27,18 @@ public class Sounds {
 	public static Sound WOOD_STEP_4;
 	public static Sound WOOD_STEP_5;
 	
+	// Tile Break Sounds
+	
 	public static Sound TREE_BREAK;
 	
 	public static Sound ROCK_BREAK1;
 	public static Sound ROCK_BREAK2;
+	
+	/** Entity Sounds */
+	// Random
+	public static Sound OINK_1;
+	public static Sound OINK_2;
+	public static Sound OINK_3;
 	
 	public static void init() throws IOException {
 		BUTTON_SELECT = Audio.loadSound(unpackResource("ui/button_select.ogg")).setLength(SoundLength.SHORT);
@@ -45,6 +57,10 @@ public class Sounds {
 		
 		ROCK_BREAK1 = Audio.loadSound(unpackResource("tiles/break/rock1.ogg")).setLength(SoundLength.SHORT);
 		ROCK_BREAK2 = Audio.loadSound(unpackResource("tiles/break/rock2.ogg")).setLength(SoundLength.SHORT);
+		
+		OINK_1 = Audio.loadSound(unpackResource("entity/random/oink1.ogg")).setLength(SoundLength.SHORT);
+		OINK_2 = Audio.loadSound(unpackResource("entity/random/oink2.ogg")).setLength(SoundLength.SHORT);
+		OINK_3 = Audio.loadSound(unpackResource("entity/random/oink3.ogg")).setLength(SoundLength.SHORT);
 	}
 	public static String unpackResource(String path) throws IOException {
 		path = "audio/" + path;

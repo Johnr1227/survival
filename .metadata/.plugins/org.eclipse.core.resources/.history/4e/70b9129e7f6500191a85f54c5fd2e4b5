@@ -1,0 +1,41 @@
+package com.cool.lib;
+
+import java.util.ArrayList;
+
+public class TextureMap {
+	public Texture texture;
+	public int textureWidth;
+	public int textureHeight;
+	
+	public ArrayList<Thing> things = new ArrayList<>();
+	
+	public TextureMap(Texture tex, int texWidth, int texHeight) {
+		this.texture = tex;
+		this.textureWidth = texWidth;
+		this.textureHeight = texHeight;
+	}
+	public void addThing(int x1, int y1, int x2, int y2) {
+		things.add(new Thing(x1/textureWidth, y1/textureHeight, x2/textureWidth, y2/textureHeight));
+	}
+	public void draw(int tex) {
+		things.get(tex).draw();
+	}
+	
+	public class Thing {
+		float x1;
+		float y1;
+		
+		float x2;
+		float y2;
+		
+		public Thing(float x1, float y1, float x2, float y2) {
+			this.x1 = x1;
+			this.y1 = y1;
+			this.x2 = x2;
+			this.y2 = y2;
+		}
+		public void draw() {
+			
+		}
+	}
+}

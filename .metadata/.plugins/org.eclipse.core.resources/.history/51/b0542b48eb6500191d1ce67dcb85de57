@@ -1,0 +1,47 @@
+package com.cool.entity;
+
+import com.cool.Main;
+import com.cool.Textures;
+import com.cool.entity.behaviors.EntityBehaviorWalk;
+import com.cool.lib.Direction;
+import com.cool.lib.TextureMap;
+import com.cool.player.Player;
+import com.cool.world.World;
+
+public class EntityMob extends Entity {
+
+	public TextureMap map;
+	public Direction facing;
+
+	public EntityMob(double xPos, double zPos, World world, Direction facing) {
+		super(xPos, zPos, world);
+		this.map = Textures.PIG_MAP;
+		this.facing = facing;
+		behaviors.add(new EntityBehaviorWalk());
+//		behaviors.add(new EntityBehaviorShakyWakey());
+	}
+
+	@Override
+	public void render(Player p, int tWidth) {
+		int t = 0;
+		switch (facing) {
+		case NORTH:
+			t = 0;
+			break;
+		case SOUTH:
+			t = 1;
+			break;
+		case EAST:
+			t = 2;
+			break;
+		case WEST:
+			t = 3;
+			break;
+		}
+		t = (Main.TICKS/20)%12;
+		map.draw(t, (int) (Main.WINDOW_WIDTH / 2 + (1 + (xPos - p.xPos)) * tWidth),
+				(int) (Main.WINDOW_WIDTH / 2 + (1 + (zPos - p.zPos)) * tWidth),
+				(int) (Main.WINDOW_HEIGHT / 2 + (xPos - p.xPos) * tWidth),
+				(int) (Main.WINDOW_HEIGHT / 2 + (zPos - p.zPos) * tWidth));
+	}
+}

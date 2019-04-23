@@ -1,0 +1,9 @@
+package com.cool.lib;
+
+public class TextureMap {
+	public Texture texture;
+	
+	public TextureMap(Texture t) {
+		
+	}
+}

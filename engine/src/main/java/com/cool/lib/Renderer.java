@@ -30,6 +30,30 @@ public class Renderer {
 		
 		glEnd();
 	}
+	public static void drawTexture(int x, int y, int x2, int y2, Texture tex, float texCoordX1,float texCoordY1,float texCoordX2,float texCoordY2) {
+		glEnable(GL_TEXTURE_2D);
+		glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();	
+		
+		tex.bind();
+		
+		glBegin(GL_QUADS);
+		glColor3f(1, 1, 1);
+		
+		glTexCoord2f(texCoordX1, texCoordY2);
+		glVertex2i(x2, y);
+		
+		glTexCoord2f(texCoordX2, texCoordY2);
+		glVertex2i(x, y);
+		
+		glTexCoord2f(texCoordX2, texCoordY1);
+		glVertex2i(x, y2);
+		
+		glTexCoord2f(texCoordX1, texCoordY1);
+		glVertex2i(x2, y2);
+		
+		glEnd();
+	}
 	public static void drawTexture3d(int x, int y, int z, int x2, int y2, int z2, Texture tex) {
 		glEnable(GL_TEXTURE_2D);
 		glMatrixMode(GL_TEXTURE);

@@ -1,0 +1,22 @@
+package com.cool.entity;
+
+import java.util.ArrayList;
+
+import com.cool.player.Player;
+
+public class EntityManager {
+	public static ArrayList<Entity> entities = new ArrayList<>();
+	
+	public static final int MAX_ENTITY_DISTANCE = 24;
+	
+	public static void tick(Player p) {
+		for(Entity e : entities) {
+			e.tick(p);
+		}
+	}
+	public static void render(Player p, int tWidth) {
+		for(Entity e : entities) {
+			e.render(p, tWidth);
+		}
+	}
+}

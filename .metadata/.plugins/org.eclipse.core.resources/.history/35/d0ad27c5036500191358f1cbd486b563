@@ -1,0 +1,10 @@
+package com.cool.entity;
+
+import com.cool.lib.Texture;
+
+public class Entity {
+	public Texture texMap;
+	public double xPos;
+	public double zPos;
+	
+}
